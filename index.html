@@ -4,16 +4,1289 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아카닉 옛날바람 가이드</title>
-    <!-- 애드센스 인증 메타 태그 및 스크립트 -->
-    <meta name="google-adsense-account" content="ca-pub-5219151531650606">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5219151531650606" crossorigin="anonymous"></script>
-    
-    <!-- 메인으로 바로 이동시키는 리다이렉트 설정 -->
-    <meta http-equiv="refresh" content="0; url=https://psb8423.github.io/archonic-baram-guide/">
+   <meta name="google-adsense-account" content="ca-pub-5219151531650606">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-color: #007bff; --bg-color: #f0f2f5; --menu-blue-1: #1e3a8a; --menu-blue-2: #2563eb; }
+        body { font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif; background-color: var(--bg-color); display: flex; margin: 0; min-height: 100vh; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 1시 방향 워터마크 & 링크, 시계 컨테이너 */
+        .watermark-container { position: fixed; top: 15px; right: 15px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; width: 175px; }
+        
+        .watermark { transition: transform 0.3s; display: flex; flex-direction: column; align-items: center; text-decoration: none; gap: 6px; }
+        .watermark img { width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 3px solid #fff; object-fit: cover; }
+        .watermark .badge { background: #ff0000; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .watermark:hover { transform: scale(1.05); }
+
+        /* 도움되는 사이트 스타일 */
+        .helpful-links { background: rgba(255, 255, 255, 0.95); padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-align: left; display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; border: 1px solid #ddd; width: 100%; box-sizing: border-box; }
+        .helpful-links .link-title { font-weight: bold; color: #333; margin-bottom: 2px; border-bottom: 1px solid #ccc; padding-bottom: 4px; text-align: center; }
+        .helpful-links a { color: #007bff; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        .helpful-links a:hover { color: #0056b3; text-decoration: underline; }
+
+           /* 디지털 시계 및 안내문 스타일 */
+        .clock-widget { 
+            background: linear-gradient(135deg, #87CEEB 0%, #192f6a 100%);
+            padding: 10px 10px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            text-align: center; 
+            width: 100%; 
+            box-sizing: border-box; 
+            color: #ffffff; 
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        #current-date { font-size: 0.75rem; color: #e0f7fa; font-weight: bold; margin-bottom: 4px; }
+        #current-time { font-size: 1.3rem; font-weight: bold; color: #ffffff; letter-spacing: 0.5px; font-family: monospace; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        #event-timer { font-size: 0.8rem; color: #ffeb3b; font-weight: bold; margin-top: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .clock-widget hr { border: 0; height: 1px; background: rgba(255, 255, 255, 0.3); margin: 8px 0; }
+        .notice-text { font-size: 0.75rem; line-height: 1.4; color: #f8f9fa; }
+        .notice-text .highlight { color: #ffeb3b; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .notice-text .sub-text { font-size: 0.7rem; color: #cfd8dc; margin-top: 3px; display: block; font-weight: bold; }
+
+        /* 좌측 트리 목차 */
+        #sidebar { width: 200px; background: #343a40; color: #fff; padding: 20px; overflow-y: auto; height: 100vh; position: sticky; top: 0; flex-shrink: 0; text-align: left; display: flex; flex-direction: column; }
+        #sidebar h2 { font-size: 1.1rem; border-bottom: 1px solid #555; padding-bottom: 10px; margin-bottom: 15px; color: #ffc107; }
+        .tree-root { list-style: none; padding: 0; font-size: 0.85rem; flex-grow: 1;}
+        .tree-item { margin: 8px 0; }
+        .tree-link { color: #ccc; text-decoration: none; cursor: pointer; transition: 0.2s; display: block; padding: 3px 0; }
+        .tree-link:hover { color: #fff; transform: translateX(5px); }
+        .tree-sub { list-style: none; padding-left: 15px; margin: 5px 0; border-left: 1px solid #555; }
+
+        /* 메인 컨텐츠 영역 */
+        #main-container { flex-grow: 1; display: flex; justify-content: center; padding: 40px 20px; }
+        #app { background: white; width: 100%; max-width: 550px; border-radius: 18px; box-shadow: 0 8px 24px rgba(30,58,138,0.1), 0 2px 6px rgba(0,0,0,0.06); padding: 28px; align-self: flex-start; text-align: center; }
+        
+        h1 { color: #1e293b; font-size: 1.45rem; margin-bottom: 20px; word-break: keep-all; font-weight: 900; letter-spacing: -0.01em; position: relative; padding-bottom: 12px; }
+        h1::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 46px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--menu-blue-1), var(--menu-blue-2)); }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; animation: fadeInUp 0.35s ease; }
+        button { padding: 14px; border: none; border-radius: 10px; background: var(--primary-color); color: white; font-size: 1rem; cursor: pointer; font-weight: bold; width: 100%; box-sizing: border-box; transition: transform 0.15s, box-shadow 0.15s, background 0.2s; }
+        button:hover { background: #0056b3; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,86,179,0.3); }
+        button:active { transform: translateY(0); }
+
+        .result { background: #e9ecef; padding: 20px; border-radius: 10px; line-height: 1.6; text-align: left; font-size: 0.95rem; animation: fadeInUp 0.35s ease; }
+        .result h3 { margin-top: 0; color: #d32f2f; border-bottom: 2px solid #d32f2f; padding-bottom: 5px; }
+        .result h4 { color: #0056b3; margin-top: 20px; margin-bottom: 10px; }
+        .result ul, .result ol { padding-left: 20px; margin-bottom: 15px; }
+        .result li { margin-bottom: 8px; line-height: 1.5; }
+        .result hr { border: 0; height: 1px; background: #ccc; margin: 25px 0; }
+        
+        /* 승급 표 스타일 CSS */
+        .stat-table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 15px; font-size: 0.85rem; text-align: center; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stat-table th, .stat-table td { border: 1px solid #ddd; padding: 8px 5px; }
+        .stat-table th { background-color: #f1f3f5; color: #333; font-weight: bold; }
+        .stat-table td { color: #444; }
+        .hp-text { color: #d32f2f; font-weight: bold; }
+        .mp-text { color: #007bff; font-weight: bold; }
+
+        /* 이미지 확대 효과 CSS */
+        .zoom-img { width: 100%; border-radius: 10px; margin: 15px 0; transition: 0.2s; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: block; }
+        .zoom-img:hover { filter: brightness(0.85); }
+
+        .tip-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin-top: 15px; font-size: 0.9rem; }
+        .video-box { margin-top: 15px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; }
+
+        .nav-btns { display: flex; gap: 10px; margin-top: 20px; }
+        .nav-btn { flex: 1; padding: 12px; border-radius: 10px; color: white; cursor: pointer; border: none; font-weight: bold; font-size: 1rem; transition: transform 0.15s, box-shadow 0.15s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.25); }
+        .nav-btn:active { transform: translateY(0); }
+        .nav-icon { font-size: 1.05rem; line-height: 1; }
+        .back-btn { background: linear-gradient(135deg, #7c848b, #5a6268); }
+        .back-btn:hover { background: linear-gradient(135deg, #6c757d, #4b5157); }
+        .home-btn { background: linear-gradient(135deg, #e35362, #c82333); }
+        .home-btn:hover { background: linear-gradient(135deg, #dc3545, #b21f2d); }
+        
+/* 접기/펴기 버튼 및 그룹 스타일 */
+        #toggle-widget-btn { font-size: 0.75rem; padding: 6px 12px; border-radius: 12px; background: #343a40; color: white; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s; align-self: flex-end; font-weight: bold; }
+        #toggle-widget-btn:hover { background: #555; }
+
+        #quick-home-btn {
+            font-size: 0.8rem;
+            padding: 8px 14px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #e35362, #c82333);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(200,35,51,0.35);
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        #quick-home-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 12px rgba(200,35,51,0.45); }
+        #quick-home-btn:active { transform: translateY(0); }
+        #collapsible-widgets { display: flex; flex-direction: column; gap: 10px; width: 100%; transform-origin: top; transition: all 0.3s ease; }
+        
+        .widgets-hidden { display: none !important; }
+        /* 영상 및 쇼츠 갤러리 그리드 스타일 */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .video-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.2s;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .video-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            /* 제목이 길어도 잘리지 않고 여러 줄로 자연스럽게 넘어가도록 설정 */
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            width: 100%;
+        }
+        .video-thumb {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* 기본 가로형 썸네일 비율 */
+            background-color: #000;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+        /* 만약 쇼츠를 세로형 썸네일로 쓰고 싶다면 아래 클래스 사용 */
+        .shorts-grid .video-thumb {
+            aspect-ratio: 9 / 16;
+        }
+
+        /* 모바일에서는 2열로 보이도록 반응형 설정 추가 */
+        @media (max-width: 500px) {
+            .video-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ===== 메인 목차 아이콘 카드 그리드 ===== */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 5px;
+        }
+        .menu-card {
+            background: linear-gradient(145deg, var(--menu-blue-1) 0%, #1e40af 50%, var(--menu-blue-2) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 22px 10px;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform 0.25s cubic-bezier(.2,.7,.3,1), box-shadow 0.25s ease;
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+            animation: fadeInUp 0.35s ease;
+        }
+        .menu-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0) 55%);
+            pointer-events: none;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(30, 58, 138, 0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        .menu-card:active {
+            transform: translateY(-2px) scale(0.99);
+        }
+        .menu-card img {
+            width: 46px;
+            height: 46px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+        }
+        /* 검정색 아이콘을 흰색으로 강제 변환 (파일 자체가 흰색이 아닐 때 사용) */
+        .menu-card img.icon-white {
+            filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+        }
+        .menu-card .menu-label {
+            font-size: 0.92rem;
+            font-weight: 700;
+            line-height: 1.35;
+            letter-spacing: -0.01em;
+            word-break: keep-all;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 500px) {
+            .menu-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+       
+  /* 모바일 대응 */
+@media (max-width: 768px) {
+    body { flex-direction: column; }
+    #sidebar { width: 100%; height: auto; position: relative; padding: 15px; box-sizing: border-box; display: none; }
+    #sidebar.sidebar-open { display: flex; }
+    #main-container { padding: 20px 10px; }
+    .watermark-container { position: static; width: 100%; max-width: 320px; margin: 0 auto 18px; align-items: center; }
+    #toc-toggle-btn { display: block; width: 100%; }
+}
+
+#toc-toggle-btn {
+    display: none;
+    background: #1e3a5f;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+#toc-toggle-btn:hover { background: #16304f; }
+    </style>
 </head>
 <body>
-    <h1>아카닉 옛날바람 가이드</h1>
-    <p>잠시 후 가이드 페이지로 이동합니다.</p>
-    <p>이동하지 않을 경우 <a href="https://psb8423.github.io/archonic-baram-guide/">여기</a>를 클릭하세요.</p>
+
+<div class="watermark-container">
+    <button id="toc-toggle-btn" onclick="toggleSidebar()">☰ 목차 펴기</button>
+    <a href="https://www.youtube.com/@archonic00" target="_blank" class="watermark" title="아카닉 유튜브로 이동">
+        <img src="profil.png" alt="아카닉 유튜브">
+        <span class="badge">아카닉 유튜브</span>
+    </a>
+
+    <button id="quick-home-btn" onclick="goHome()" title="처음 화면으로 이동"><span class="nav-icon">🏠</span> 처음으로</button>
+
+    <button id="toggle-widget-btn" onclick="toggleWidgets()">▼ 위젯 접기</button>
+    
+    <div id="collapsible-widgets">
+        <div class="clock-widget">
+            <div id="current-date">0000년 00월 00일 (요일)</div>
+            <div id="current-time">00:00:00</div>
+            <div id="event-timer">타이머 계산중...</div>
+            <hr id="notice-hr">
+            <div class="notice-text" id="daily-notice"></div>
+        </div>
+
+      <div class="helpful-links">
+            <div class="link-title">도움이 되는 사이트</div>
+            <a href="https://oldbaramtools.com/" target="_blank">1) 옛바도구</a>
+            <a href="https://arca.live/b/baramclassic" target="_blank">2) 옛날바람채널</a>
+            <a href="https://psb8423.github.io/archonic-baram-party/" target="_blank">3) 옛바 파티매칭</a>
+        </div>
+      
+
+     
+        </div>
+    </div>
+</div>
+<nav id="sidebar">
+    <h2>목차 바로가기</h2>
+    <input type="text" id="searchBox" placeholder="검색..." style="width:100%; padding:8px; margin-bottom:10px; border-radius: 5px; border: none; box-sizing: border-box;" oninput="searchGuide(this.value)">
+    <ul class="tree-root" id="tree-menu"></ul>
+</nav>
+
+<main id="main-container">
+    <div id="app">
+        <h1 id="question">항목을 선택하세요</h1>
+        <div id="content" class="btn-container"></div>
+        <div class="nav-btns" id="nav-btns" style="display:none;">
+            <button class="nav-btn back-btn" onclick="goBack()"><span class="nav-icon">←</span>이전으로</button>
+            <button class="nav-btn home-btn" onclick="goHome()"><span class="nav-icon">🏠</span>처음으로</button>
+        </div>
+    </div>
+</main>
+
+<script>
+    // ===== 글로벌 변수 설정 =====
+    let historyStack = [];
+    let currentPage = null;
+    
+    const treeMenuEl = document.getElementById('tree-menu');
+    const questionEl = document.getElementById('question');
+    const contentEl = document.getElementById('content');
+    const navBtns = document.getElementById('nav-btns');
+
+    // ===== 시계 및 요일별 안내문구 업데이트 기능 =====
+    function updateClock() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const date = now.getDate();
+        const dayOfWeek = now.getDay(); 
+        const days = ['일', '월', '화', '수', '목', '금', '토'];
+        const day = days[dayOfWeek];
+        
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        document.getElementById('current-date').innerText = `${year}년 ${month}월 ${date}일 (${day})`;
+        document.getElementById('current-time').innerText = `${hours}:${minutes}:${seconds}`;
+
+        const noticeEl = document.getElementById('daily-notice');
+        const hrEl = document.getElementById('notice-hr');
+        let noticeHtml = "";
+
+        if (dayOfWeek === 1) { // 월요일
+            noticeHtml = "";
+            hrEl.style.display = "none";
+        } else if (dayOfWeek >= 2 && dayOfWeek <= 5) { // 화~금
+            const castles = ["", "", "졸본성 : 주작의성", "송원성 : 현무의성", "숙군성 : 청룡의성", "장훈성 : 백호의성"];
+            const dayNames = ["", "", "화요일", "수요일", "목요일", "금요일"];
+            noticeHtml = `<span class="highlight">${dayNames[dayOfWeek]} 21:00</span><br><strong>${castles[dayOfWeek]}</strong>`;
+            hrEl.style.display = "block";
+        } else { // 주말 (토, 일)
+            noticeHtml = `<span class="highlight">토요일/일요일 21:00</span><br><strong>남북무한대전</strong><br><span class="sub-text">바람가족의축복 수령후 입장바람</span>`;
+            hrEl.style.display = "block";
+        }
+
+        if (noticeEl.innerHTML !== noticeHtml) {
+            noticeEl.innerHTML = noticeHtml;
+        }
+    }
+    setInterval(updateClock, 1000);
+    updateClock(); 
+
+    // ===== 공성/이벤트 타이머 (월요일 예외처리 및 텍스트 분기) =====
+    function updateEventTimer() {
+        const now = new Date();
+        const dayOfWeek = now.getDay();
+        const el = document.getElementById('event-timer');
+        if (!el) return;
+
+        if (dayOfWeek === 1) { // 월요일
+            el.innerText = "오늘은 일정이 없습니다";
+            return;
+        }
+
+        // 오늘의 21:00 시간을 구함
+        const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0);
+        let diff = next - now;
+
+        if (diff < 0) {
+            el.innerText = "이벤트 진행중 / 종료";
+            return;
+        }
+
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        const timeString = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+
+        if (dayOfWeek >= 2 && dayOfWeek <= 5) {
+            el.innerText = `다음 공성까지: ${timeString}`;
+        } else { // 0, 6 (토, 일)
+            el.innerText = `이벤트 시작까지: ${timeString}`;
+        }
+    }
+    setInterval(updateEventTimer, 1000);
+    updateEventTimer();
+
+    // ===== 가이드 데이터 =====
+    const level98Guide = `
+        <h3>[1~98레벨] 사냥터 루트</h3>
+        <h4>■ 영웅의길 (솔플)</h4>
+        <ul><a href='198 hunt.png' target='_blank' title='클릭해서 확대 보기'><img src='198 hunt.png' class='zoom-img'></a>
+            <li><strong>5~25:</strong> 쥐굴, 뱀굴, 사슴굴</li>
+            <li><strong>25~50:</strong> 돼지굴(자본필요시) / 고양이굴, 자호굴(30~)</li>
+            <li><strong>50~90:</strong> 서쪽해안가, 게장군굴(50~), 문어굴(60~), 해마굴/숲지대(70~)</li>
+            <li><strong>90~99:</strong> 숲지대(추천), 이가닌자의방(경쟁 있음), 흉가(피격 데미지 조심)</li>
+        </ul>
+        <div class='tip-box'>※ 계정당 한번만 이용가능, 영웅의길로 레벨별 무기와 90렙 경험치 쿠폰 획득.</div>
+        <h4>■ 중독쩔 (또는 진선)</h4>
+        <ul>
+            <li><strong>5~30:</strong> 쥐굴, 뱀굴, 사슴굴</li>
+            <li><strong>30~60:</strong> 장안성 강속<br>장안성비서 사용후 강속으로, 한바퀴 돌고나서 채널 옮긴 후 한바퀴 더 돌기(2바퀴 돌면 60렙 내외)</li>
+            <li><strong>60~83:</strong> 문어굴(60~), 해마굴(70~)</li>
+            <li><strong>83~99:</strong> 밀격(1차) + 밀대도사(4차) 선녀쩔 (1시간 정도)</li>
+        </ul>
+        <div class='tip-box'>※ 문파원/친구가 도와줄 때. 천리마굴도 괜찮으나 거리가 멂. 돼지굴은 51렙 이상 입장불가.</div>
+        <h4>■ 무자본 일반</h4>
+        <ul>
+            <li><strong>5~25:</strong> 초보자사냥터(~10), 쥐/뱀굴(~20), 사슴굴(~25)</li>
+            <li><strong>25~60:</strong> 돼지굴(자본마련), 자호굴(51~)</li>
+            <li><strong>60~90:</strong> 서쪽해안가(50~99) 경쟁 있고 젠 느린편. 체력대비 경험치는 좋음, 문어/해마굴(~90)</li>
+            <li><strong>90~99:</strong> 숲지대 솔플, 이가닌자의방(경쟁있음), 흉가 (흉가노노 등 -> 1차이상부터 선호되므로 구인이 어려울수 있음)</li>
+        </ul>
+        <div class='tip-box'>※ 영웅의길 X, 도와주는 사람 X 가정의 루트. 흉가 이전 사냥터는 호박이 드랍되지 않음. </div>
+    `;
+
+   const guideData = {
+        title: "아카닉 옛날바람 가이드",
+        viewType: "grid",
+        options: [
+            {
+                text: "1. 단축키 및 지도",
+                icon: "menu1.png",
+                result: `
+                    <h3>[단축키 및 지도]</h3>
+                    <h4>■ 주요 단축키</h4>
+                    <a href='shot cut.png' target='_blank' title='클릭해서 확대 보기'><img src='shot cut.png' class='zoom-img'></a>
+                    <ul>
+                        <li><strong>단축키 내용:</strong> shift+m 지도.</li>
+                    </ul>
+                    <hr>
+                    <h4>■ 부여성 지도</h4>
+                    <a href='buyeo map.png' target='_blank' title='클릭해서 확대 보기'><img src='buyeo map.png' class='zoom-img'></a>
+                    <h4>■ 국내성 지도</h4>
+                    <a href='kookne map.png' target='_blank' title='클릭해서 확대 보기'><img src='kookne map.png' class='zoom-img'></a>
+                `
+            },
+            {
+                text: "2. 사냥터",
+                icon: "menu2.png",
+                next: {
+                    title: "직업을 선택하세요",
+                    options: [
+                        { 
+                            text: "1) 주술사", 
+                            
+                            next: {
+                                title: "주술사 승급 기준을 선택하세요",
+                                image: "<a href='2026 hunt 2.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 2.png' class='zoom-img'></a>",
+                                options: [
+                                   
+                                    { text: "1) 1~98레벨 (육성)", result: level98Guide },
+                                    { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 주술사] 사냥터</h3><ul><li><strong>마력 3만~:</strong> 흉가 / 숲지대 (시간당 6~8억)</li></ul><a href='soop vs hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='soop vs hungga.png' class='zoom-img'></a><div class='tip-box'><strong>💡 아카닉 팁:</strong><br>주술사는 쩔/밀대와 직접 사냥 효율 차이가 큽니다. 경쿠가 있다면 쩔 받는 것을 추천합니다. 숲지대가 경험치가 높아도 <strong>흉가를 추천하는 이유</strong>는, 당장 번 돈을 쩔에 쓰면 경험치 상으로 훨씬 이득이기 때문입니다.</div>` },
+                                    { text: "3) 1차 (술사)", result: `<h3>[1차 술사] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/YAyILbR7gXw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>마력 6만~:</strong> 신극지방 (시간당 9~12억)</li></ul><div class='tip-box'><strong>💡 아카닉 추천 루트:</strong><br>흉가 + 높산적(무사)쩔 → <strong>(1차) 신극지방 + 높산적(무사)쩔</strong><br><br>※ 선녀 쩔: 시간당 30억<br>※ 무사/산적 쩔: 시간당 45~55억</div>` },
+                                    { text: "4) 2차 (현사)", result: `<h3>[2차 현사] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/YAyILbR7gXw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>마력 25만~:</strong> 중산적 (시간당 18~24억)</li><li><strong>마력 39만~ (솔플):</strong> 높산적 (시간당 30~36억)</li><li><strong>마력 36만~(격도술) / 45만~(솔플):</strong> 도삭산 800층 (시간당 45~55억)</li></ul><div class='tip-box'><strong>💡 아카닉 추천 루트:</strong><br>(1차) 신극지방 → <strong>(2차) 800층 격도술 + 선비쩔</strong><br><br>※ 2차 선비 쩔(밀대): 시간당 80~90억</div>` },
+                                    { text: "5) 3차 (현인)", result: `<h3>[3차 현인] 사냥터 (선비족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/58KK3Ww67X4' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><a href='sunbi exp 1.png' target='_blank' title='클릭해서 확대 보기'><img src='sunbi exp 1.png' class='zoom-img'></a><li><strong>마력 34만 (저주+마기):</strong> 선비족 (솔플: 50~55억 / 떱헬: 65~70억)</li><li><strong>마력 54만 (격도술):</strong> 선비족 (격도술: 60~65억)<br>격도술 한바퀴 3.6억, 17바퀴 기준 61.2억 </li></ul><div class='tip-box'><strong>💡 아카닉 추천 루트:</strong><br>(2차) 800층 → <strong>(3차) 선비족 격도술</strong><br><br>※ 3차 선비 밀대: 시간당 90~100억</div>` },
+                                    { text: "6) 4차 (현자)", result: `<h3>[4차 현자] 사냥터 (흉노족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/-MyhwWNkF-Y' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>마력 90만 (격도술):</strong> 낮 흉노 (시간당 160~220억)</li><li><strong>마력 135만~ (격도술):</strong> 도삭산 900층 (시간당 300~350억)</li></ul><a href='hungno exp list.png' target='_blank' title='클릭해서 확대 보기'><img src='hungno exp list.png' class='zoom-img'></a><a href='warrior 900.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 900.png' class='zoom-img'></a><div class='tip-box'><strong>💡 아카닉 추천 루트:</strong><br>낮흉 격도술<br><br>※ 참고: 격도 82.5%, 격도술 60%</div>` }
+                                ]
+                            }
+                        },
+                        { 
+                            text: "2) 전사", 
+                            next: {
+                                title: "전사 승급 기준을 선택하세요",
+                           image: "<a href='2026 hunt 1.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 1.png' class='zoom-img'></a>",
+                                options: [
+                                     
+                                    { text: "1) 1~98레벨 (육성)", result: level98Guide },
+                                    { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 전사] 사냥터</h3></h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 3만~:</strong> 흉가 (시간당 10~15억)</li></ul><a href='warrior hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior hungga.png' class='zoom-img'></a><ul><a href='ghost house map.png' target='_blank' title='클릭해서 확대 보기'><img src='ghost house map.png' class='zoom-img'></a>
+          <ul>
+<li><strong>체력 2만~(4방컷):</strong> 흉가 1바퀴 20분정도 (시간당 7억)</li>
+<li><strong>체력 3.5만~(동귀 1방컷):</strong> 흉가 1바퀴 10분 정도(시간당 14억) *공력주입 자주 필요</li>
+<li><strong>체력 6.5만~(백호참 1방컷):</strong> 흉가 1바퀴 10분 정도(시간당 14억)</li>
+</ul><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 선녀 쩔: 시간당 30억<br>※ 무사/산적 쩔: 시간당 45~55억</div>` },
+                                    { text: "3) 1차 (검객)", result: `<h3>[1차 검객] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'><div class='video-box'></iframe></div><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/1nikjmtlKsk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 8만~:</strong> 닌자 / 선녀 (시간당 22~30억)</li><li><strong>체력 25~30만:</strong> 높산적 밀격 (시간당 45~55억)</li></ul><a href='warrior ninja.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior ninja.png' class='zoom-img'></a><a href='warrior sanjuck.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sanjuck.png' class='zoom-img'></a><ul><a href='sanjuck map.png' target='_blank' title='클릭해서 확대 보기'><img src='sanjuck map.png' class='zoom-img'></a>
+ ` },
+                                    { text: "4) 2차 (검제)", result: `<h3>[2차 검제] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/E382Ctv87Xw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 30~55만:</strong> 선녀 + 닌자 2굴 (시간당 30~32억)</li><li><strong>체력 55~80만:</strong> 도삭산 800층 (시간당 45~55억)</li><li><strong>체력 80~100만:</strong> 선비족 (격도술: 60억 / 밀격: 80~90억)</li></ul><a href='warrior sunnya.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sunnya.png' class='zoom-img'></a><a href='warrior 800.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 800.png' class='zoom-img'></a><ul><a href='sunnya 1 9.png' target='_blank' title='클릭해서 확대 보기'><img src='sunnya 1 9.png' class='zoom-img'></a><ul><a href='sunnya 10 17.png' target='_blank' title='클릭해서 확대 보기'><img src='sunnya 10 17.png' class='zoom-img'></a>
+      <div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 2차 선비 쩔(밀대): 시간당 80~90억</div>` },
+                                    { text: "5) 3차 (검황)", result: `<h3>[3차 검황] 사냥터 (선비족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/58KK3Ww67X4' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><a href='sunbi exp 1.png' target='_blank' title='클릭해서 확대 보기'><img src='sunbi exp 1.png' class='zoom-img'></a><li><strong>체력 100~140만:</strong> 선비족 <br> 격도술: 60~65억(한바퀴 3.6억, 17바퀴 61.2억) <br> 반반: 90~100억(한바퀴 5억, 18바퀴 90억) </li></ul><a href='warrior sunbi.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sunbi.png' class='zoom-img'></a><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 3차 선비 밀대: 시간당 90~100억</div>` },
+                                    { text: "6) 4차 (검성)", result: `<h3>[4차 검성] 사냥터 (흉노족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/-MyhwWNkF-Y' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 140~220만:</strong> 낮 흉노 (격도술: 160~220억 / 격도: 150~220억)</li><li><strong>체력 240만~:</strong> 도삭산 900층 (격도술: 300~350억)</li></ul><a href='warrior lowhungno.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior lowhungno.png' class='zoom-img'></a><a href='warrior 900.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 900.png' class='zoom-img'></a><a href='hungno exp list.png' target='_blank' title='클릭해서 확대 보기'><img src='hungno exp list.png' class='zoom-img'></a><div class='tip-box'><strong>💡 참고:</strong><br>※ 격도: 82.5% (75% x 1.1)<br>※ 격도술: 60% (50% x 1.1 x 1.1)</div>` }
+                                ]
+                            }
+                        },
+                        { 
+                            text: "3) 도적", 
+                            next: {
+                                title: "도적 승급 기준을 선택하세요",
+                                image: "<a href='2026 hunt 3.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 3.png' class='zoom-img'></a>",
+                                options: [
+                                   
+                                    { text: "1) 1~98레벨 (육성)", result: level98Guide },
+                                    { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 도적] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 3만~:</strong> 흉가 (시간당 10~15억)</li></ul><a href='warrior hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior hungga.png' class='zoom-img'></a><ul>
+<li><strong>체력 2만~(4방컷):</strong> 흉가 1바퀴 20분정도 (시간당 7억)</li>
+<li><strong>체력 3.5만~(2방컷):</strong> 흉가 1바퀴 15분 정도(시간당 9억)</li>
+<li><strong>체력 6.5만~(1방컷):</strong> 흉가 1바퀴 10분 정도(시간당 14억)</li>
+</ul><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 선녀 쩔: 시간당 30억<br>※ 무사/산적 쩔: 시간당 45~55억</div>` },
+                                    { text: "3) 1차 (자객)", result: `<h3>[1차 자객] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/1nikjmtlKsk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 8만~:</strong> 닌자 / 선녀 (시간당 22~30억)</li><li><strong>체력 30만:</strong> 무사의방 밀격 (시간당 45~55억)</li></ul><a href='warrior ninja.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior ninja.png' class='zoom-img'></a>` },
+                                    { text: "4) 2차 (진검)", result: `<h3>[2차 진검] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/E382Ctv87Xw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><a href="https://www.youtube.com/watch?v=1nikjmtlKsk" target="_blank" class="video-card">
+    <img src="https://img.youtube.com/vi/1nikjmtlKsk/hqdefault.jpg" alt="썸네일" class="video-thumb">
+</a><ul><li><strong>체력 30~55만:</strong> 선녀 + 닌자 2굴 (시간당 30~32억)</li><li><strong>체력 55~80만:</strong> 도삭산 800층 (시간당 45~55억)</li><li><strong>체력 80~100만:</strong> 선비족 (격도술: 60억 / 밀격: 80~90억)</li></ul><a href='warrior sunnya.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sunnya.png' class='zoom-img'></a><a href='warrior 800.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 800.png' class='zoom-img'></a><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 2차 선비 쩔(밀대): 시간당 80~90억</div>` },
+                                    { text: "5) 3차 (귀검)", result: `<h3>[3차 귀검] 사냥터 (선비족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/58KK3Ww67X4' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><a href='sunbi exp 1.png' target='_blank' title='클릭해서 확대 보기'><img src='sunbi exp 1.png' class='zoom-img'></a><li><strong>체력 100~140만:</strong> 선비족 <br> 격도술: 60~65억(한바퀴 3.6억, 17바퀴 61.2억) <br> 반반: 90~100억(한바퀴 5억, 18바퀴 90억) </li></ul><a href='warrior sunbi.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sunbi.png' class='zoom-img'></a><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 3차 선비 밀대: 시간당 90~100억</div>` },
+                                    { text: "6) 4차 (태성)", result: `<h3>[4차 태성] 사냥터 (흉노족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/-MyhwWNkF-Y' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 140~220만:</strong> 낮 흉노 (격도술: 160~220억 / 격도: 150~220억)</li><li><strong>체력 240만~:</strong> 도삭산 900층 (격도술: 300~350억)</li></ul><a href='warrior lowhungno.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior lowhungno.png' class='zoom-img'></a><a href='warrior 900.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 900.png' class='zoom-img'></a><a href='hungno exp list.png' target='_blank' title='클릭해서 확대 보기'><img src='hungno exp list.png' class='zoom-img'></a><div class='tip-box'><strong>💡 참고:</strong><br>※ 격도: 82.5% (75% x 1.1)<br>※ 격도술: 60% (50% x 1.1 x 1.1)</div>` }
+                                ]
+                            }
+                        },
+                        { 
+                            text: "4) 도사", 
+                            next: {
+                                title: "도사 승급 기준을 선택하세요",
+                                image: "<a href='2026 hunt 4.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 4.png' class='zoom-img'></a>",
+                                options: [
+                                     
+                                    { text: "1) 1~98레벨 (육성)", result: level98Guide },
+                                    { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 도사] 사냥터</h3><ul><li><strong>흉가:</strong> 시간당 9~12억</li></ul><a href='warrior hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior hungga.png' class='zoom-img'></a>` },
+                                    { text: "3) 1차 (도인)", result: `<h3>[1차 도인] 사냥터</h3><ul><li><strong>흉가:</strong> 시간당 12~15억</li><li><strong>닌자의방:</strong> 시간당 21억 내외</li></ul><a href='warrior ninja.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior ninja.png' class='zoom-img'></a>` },
+                                    { text: "4) 2차 (명인)", result: `<h3>[2차 명인] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/E382Ctv87Xw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>선녀의방:</strong> 시간당 28~32억</li><li><strong>마력 30만~:</strong> 도삭산 800층 (시간당 45~55억)</li><li><strong>선비반반:</strong> 시간당 80~100억 (금전 약 30만전 소모)</li></ul><a href='warrior 800.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 800.png' class='zoom-img'></a>` },
+                                    { text: "5) 3차 (진인)", result: `<h3>[3차 진인] 사냥터 (선비족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/58KK3Ww67X4' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><a href='sunbi exp 1.png' target='_blank' title='클릭해서 확대 보기'><img src='sunbi exp 1.png' class='zoom-img'></a><li><strong>선비족 격도술:</strong> 선비족 <br> 격도술: 60~65억(한바퀴 3.6억, 17바퀴 61.2억) <br> 반반: 90~100억(한바퀴 5억, 18바퀴 90억) </li><li><strong>선비족 격도:</strong> 약 80억</li></ul>` },
+                                    { text: "6) 4차 (진선)", result: `<h3>[4차 진선] 사냥터 (흉노족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/-MyhwWNkF-Y' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>낮 흉노 격도술:</strong> 160억(마력 80만) ~ 230억(마력 110만)</li><li><strong>마력 140만~:</strong> 도삭산 900층 격도술 (시간당 320~350억)</li></ul><a href='warrior lowhungno.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior lowhungno.png' class='zoom-img'></a><a href='warrior 900.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 900.png' class='zoom-img'></a><a href='hungno exp list.png' target='_blank' title='클릭해서 확대 보기'><img src='hungno exp list.png' class='zoom-img'></a>` }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                text: "3. 아이템",
+                icon: "menu3.png",
+                iconClass: "icon-white",
+                next: {
+                    title: "아이템 세팅 종류를 선택하세요",
+                    options: [
+                        {
+                            text: "1. 가성비 방어구/무기",
+                            result: `
+                                <h3>[가성비 방어구 세팅]</h3>
+                                <h4>■ 레벨 99 이하</h4>
+                                <a href='item gasungbi 1.png' target='_blank' title='클릭해서 확대 보기'><img src='item gasungbi 1.png' class='zoom-img'></a>
+                                <ul>
+                                    <li><strong>투구:</strong> 금장남자(여)투구 (무장 -10, 내구 3만, 재생 20) <br>/ 주홍투구 (무장 -9, 체마 500, 힘 3, 민지재 2, 마방 1, 수리O)</li>
+                                    <li><strong>방어구:</strong> 50렙 회색갑옷 (무장 -33, 내구 9만) <br>/ 86렙 금갑옷류 (무장 -32~-46, 내구 500만, 수리X)</li>
+                                    <li><strong>반지류:</strong> 인어반지 (무장 -7, 체 200, 마 250, 힘민지 1) <br>/ 진주반지 (무장 -7, Hit 3, Dam 3, 체마 200, 지 1, 재생 1, 마방 1, 수리X)</li>
+                                    <li><strong>보조:</strong> 상해 (무장 -2) / 직업별 목걸이 (체 200 또는 마 100)</li>
+                                </ul>
+                                <h4>■ 4차 승급</h4>
+                                <ul>
+                                    <li><strong>투구:</strong> 용왕의투구 (무장 -11, Hit 4, Dam 4, 체마 900, 힘 6, 민 5, 지 4, 마방 1, 재생 2, 수리O)</li>
+                                    <li><strong>방어구:</strong> 3차 승급옷 (무장 -36~-49, 내구 100만, 수리O) <br>/ 800층 산신옷 (무장 -40~-45, 체 600, 마 300, 수리O)</li>
+                                    <li><strong>반지류:</strong> 75렙 녹호박 반지류 (무장 -6~-9, 체 200~400, 마 0~250, 마방 1, 재생 2, 수리X) <br>/ 용왕의반지 (무장 -9, 체마 600, 힘민 1, 지 5, 마방 1, 수리O)</li>
+                                    <li><strong>보조:</strong> 시력회복의귀걸이 (흉노 사냥시 필수, 도삭산 200층 갑옷점 판매 (귀속 100만전) 수리X)</li>
+                                </ul>
+                                <hr>
+                                <h3>[가성비 무기 세팅]</h3>
+                                <div class='tip-box'><strong>💡 아카닉 팁:</strong><br>주술사와 도사는 무기 의존도가 매우 적어 생략 가능합니다.</div>
+                                <a href='item gasungbi 2.png' target='_blank' title='클릭해서 확대 보기'><img src='item gasungbi 2.png' class='zoom-img'></a>
+                                <ul>
+                                    <li><strong>전사:</strong><br>비철단도 →<br>현철중검 (대지의힘) →<br>다문창 (Dam 2, 힘민지 5) →<br>녹호박별검 (Hit 6, Dam 1, 체 4000, 마 500, 힘 1) →<br>검성기검 (체 2만, 힘민지 10, 사성격)</li>
+                                    <li><strong>도적:</strong><br>비철단도 →<br>일월대도/도깨비방망이 →<br>이가닌자의검 (Hit 5, Dam 4) →<br>녹호박별도 (Hit 6, Dam 1, 체 4000, 마 500, 힘 1) →<br>태성태도 (체 2만, 힘민지 10, 사성격)</li>
+                                    <li><strong>주술사:</strong><br>비철단도 →<br>칠교칠선/인풍죽선 →<br>인어장군지팡이 (체마 400, 힘민지 5) →<br>녹호박별곤 (무장 -1, 체 300, 마 2000, 지 2, 마방 2) →<br>현자금봉 (마 1만, 힘민지 10, 사성격)</li>
+                                    <li><strong>도사:</strong><br>비철단도 →<br>칠교/인풍 →<br>인어장군지팡이 →<br>녹호박별봉 (무장 -1, 체 300, 마 2000, 힘민지 10, 마방 2) →<br>진선역봉 (마 1만, 힘민지 10, 사성격)</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            text: "2. 고성능 방어구/무기",
+                            result: `
+                                <h3>[고성능 방어구 세팅]</h3>
+                                <a href='item pre 1.png' target='_blank' title='클릭해서 확대 보기'><img src='item pre 1.png' class='zoom-img'></a>
+                                <ul>
+                                    <li><strong>투구:</strong> 황금투구 (무장 -12, 체마 800, 힘민지 5, 마방 1, 재생 2, 수리O) <br>/ 세시투구 (무장 -7, 체마 100, 내구도보호 50%)</li>
+                                    <li><strong>투구(대체재):</strong> 연홍/연청투구'미구현' (무장 -8, Hit 3, Dam 2, 체마 1000, 힘 4, 민 3, 내구도보호 70%)</li>
+                                    <li><strong>방어구:</strong> 해골갑옷 (무장 -45, 체 -500, 마 300, 수리O ※ 술사/도사 추천)</li>
+                                    <li><strong>반지류:</strong> 황금 장갑/팔찌/반지/선류 (무장 -10, 체/마 300~800) <br>/ 연위팔찌 (도적용, 무장 -10, Hit 2, Dam 2, 체 500, 마 200, 힘 1, 민 3, 재생 2, 마방 1)</li>
+                                    <li><strong>반지(대체재):</strong> 적호박팔찌 (무장 -10, Hit 2, Dam 3, 체 200, 마 100, 마방 1, 재생 2, 수리X)</li>
+                                    <li><strong>보조:</strong> 보무의목걸이 (자동 보무) <br>/ 투명구두 (자동 투명) <br>/ 금편의목걸이 (무장 -2, Hit 1, Dam 1, 체마 500, 힘민지 3)</li>
+                                </ul>
+                                <hr>
+                                <h3>[고성능 무기 세팅]</h3>
+                                <a href='item pre 2.png' target='_blank' title='클릭해서 확대 보기'><img src='item pre 2.png' class='zoom-img'></a>
+                                <h4>■ 99 이전</h4>
+                                <ul>
+                                    <li><strong>진명삼지창(힘20):</strong> Hit 3, Dam 1, 힘 20 이상, 내구 2만, 수리O</li>
+                                    <li><strong>이가닌자의검(레벨56 힘40):</strong> Hit 5, Dam 4, 체 300, 마 200, 힘민지 5, 내구 10만, 수리X (내구도 소모 심함)</li>
+                                    <li><strong>월아검(레벨77 힘40):</strong> Dam 5, 체 500, 마 200, 힘민지 10, 내구 30만, 수리X (월아일격 : 3~3.5만데미지의 격)</li>
+                                </ul>
+                                <h4>■ 중자본 이상 (공용)</h4>
+                                <ul>
+                                    <li><strong>심판의낫:</strong> 체마 7000, 힘 15, 지 10, 마방 1, 재생 50, 수리O</li>
+                                    <li><strong>천풍선:</strong> 마 1200, 지 15, 재생 50, 수리O</li>
+                                    <li><strong>정화의방패 (방패):</strong> 무장 -7, 체마 300, 힘민지 2, 수리O</li>
+                                </ul>
+                                <h4>■ 초고자본 (용무기 & 전설)</h4>
+                                <ul>
+                                    <li><strong>전사:</strong> 용마제삼검 (Hit 7, Dam 2) 2만데미지의 격 / 진일신검 (Hit 7, Dam 2, 체 2.5%, 힘민지 10)</li>
+                                    <li><strong>도적:</strong> 용천제삼검 (Hit 7, Dam 2) 2만데미지의 격 / 청월기창 (Hit 7, Dam 2, 체 2.5%, 힘민지 10)</li>
+                                    <li><strong>주술사:</strong> 용랑제삼봉 (저주격 +37, 헬파이어 딜레이 -10%) / 황화곤봉 (마 300, 힘민지 2, 숨겨진옵션 마 2.5%)</li>
+                                    <li><strong>도사:</strong> 용겸제삼봉 (저주격 +57, 백호의희원 딜레이 -10%) / 적화접선 (체마 300, 힘민지 2, 숨겨진옵션 마 2.5%)</li>
+                                </ul>
+                            `
+                        }
+                    ]
+                }
+            },
+            {
+                text: "4. 파밍 사냥터",
+                icon: "menu4.png",
+                iconClass: "icon-white",
+                result: `
+                    <h3>[레벨별 추천 파밍 루트]</h3>
+                    <p>내용에 맞는 사진 두 장을 아래에 배치했습니다.</p>
+                    <a href='farm 1.png' target='_blank' title='클릭해서 확대 보기'><img src='farm 1.png' class='zoom-img'></a>
+                    <a href='farm 2.png' target='_blank' title='클릭해서 확대 보기'><img src='farm 2.png' class='zoom-img'></a>
+                    <ul>
+                        <li><strong>레벨 99 내외:</strong> 돼지굴 노가다(50레벨까지) → 흉가 호박 파밍 → 쇠조각 파밍</li>
+                        <li><strong>1차승급~2차승급:</strong> 북방 대초원 20층 (독, 쇠조각, 장인의돌), 불의수정(문위의방, 문려드랍), (도사)흉가 노노</li>
+                        <li><strong>3차승급~4차승급:</strong> 보스레이드(3인 격도술 기준 추천승급 : 백호왕 3차승급, 해골왕 4차승급, 용왕용마 4차승급 이상</li>
+                    </ul>
+                    <div class='tip-box'>※ 본인의 장비 수준과 직업에 맞는 사냥터를 선택하는 것이 가장 효율적입니다.</div>
+                `
+            },
+            {
+                text: "5. 승급가이드",
+                icon: "menu5.png",
+                iconClass: "icon-white",
+                next: {
+                    title: "승급 단계를 선택하세요",
+                    options: [
+                        {
+                            text: "1) 1, 2차 승급",
+                            result: `
+                                <h3>[1, 2차 승급 가이드]</h3>
+                                <div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/영상주소' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div>
+                                  <a href='12jisin map.png' target='_blank' title='클릭해서 확대 보기'><img src='12jisin map.png' class='zoom-img'></a>
+                                <h4>■ 1차 승급 추천 체력/마력</h4>
+                                <table class="stat-table">
+                                    <tr><th>직업</th><th>검객(전사)</th><th>자객(도적)</th><th>술사(주술)</th><th>도인(도사)</th></tr>
+                                    <tr><td>체력</td><td class="hp-text">7만</td><td class="hp-text">6.5만</td><td class="hp-text">3만</td><td class="hp-text">2.5만</td></tr>
+                                    <tr><td>마력</td><td class="mp-text">-</td><td class="mp-text">-</td><td class="mp-text">2만</td><td class="mp-text">2.5만</td></tr>
+                                </table>
+
+                                <h4>■ 2차 승급 추천 체력/마력</h4>
+                                <table class="stat-table">
+                                    <tr><th>직업</th><th>검제(전사)</th><th>진검(도적)</th><th>현사(주술)</th><th>명인(도사)</th></tr>
+                                    <tr><td>체력</td><td class="hp-text">30만</td><td class="hp-text">30만</td><td class="hp-text">15만</td><td class="hp-text">8만</td></tr>
+                                    <tr><td>마력</td><td class="mp-text">-</td><td class="mp-text">-</td><td class="mp-text">10만</td><td class="mp-text">7만</td></tr>
+                                </table>
+
+                                <ul>
+                                    <li><strong>필요 준비물:</strong> <br>1차승급 : 팔괘 + 경험치 5천만 <br>2차승급 : 수룡, 화룡의 비늘</li>
+                                </ul>
+                                <div class='tip-box'>
+                                    <strong>💡 팁:</strong> 팔괘는 쥐, 토끼, 닭, 뱀, 돼지, 소, 원숭이, pk호랑이왕(천상계제이계)굴에서 획득.<br>
+                                    용의비늘은 천상계제이계 다음방인 수화룡의 방에서 나오는 용의 비늘을 국내성 갑옷점에서 교환하여 획득. (수룡 7%, 화룡 3% 정도라고 함)<br>
+                                    1차는 대부분 칼승. 2차는 격수 풀승, 비격수 칼승.<br><br>
+                                    <strong>🔥 요즘 2차 승급 트렌드:</strong><br>
+                                    검객(전사)과 자객(도적)은 각각 <strong>높산적 밀격, 무사의방 밀격</strong>으로 선호도가 매우 높습니다.<br>
+                                    따라서 바로 승급하지 않고 <strong>체력 30만 + 마력 5만 정도 + 경험치 500억(풀경)</strong>을 모은 후 2차(검제/진검)로 승급하는 것이 요즘 대세입니다.
+                                </div>
+                            `
+                        },
+                        {
+                            text: "2) 3차 승급",
+                            result: `
+                                <h3>[3차 승급 가이드]</h3>
+                                <div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/sG1J3TKgHpk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div>
+                                <a href='3th promotion 1.png' target='_blank' title='클릭해서 확대 보기'><img src='3th promotion 1.png' class='zoom-img'></a>
+                                <a href='3th promotion 2.png' target='_blank' title='클릭해서 확대 보기'><img src='3th promotion 2.png' class='zoom-img'></a>
+                                <a href='3th promotion 3.png' target='_blank' title='클릭해서 확대 보기'><img src='3th promotion 3.png' class='zoom-img'></a>
+                                <h4>■ 3차 승급 추천 체력/마력</h4>
+                                <table class="stat-table">
+                                    <tr><th>직업</th><th>검황(전사)</th><th>귀검(도적)</th><th>현인(주술)</th><th>진인(도사)</th></tr>
+                                    <tr><td>체력</td><td class="hp-text">100~120만</td><td class="hp-text">120만</td><td class="hp-text">30만</td><td class="hp-text">25~60만</td></tr>
+                                    <tr><td>마력</td><td class="mp-text">-</td><td class="mp-text">-</td><td class="mp-text">50만</td><td class="mp-text">70만</td></tr>
+                                </table>
+
+                                <ul>
+                                    <li>도사(진인) 승급의 경우, 마력이 낮으면 선호도가 떨어지기 때문에 보통 마력 70만 정도의 <strong>풀승</strong>을 추천합니다.</li>
+                                    <li><strong>보스 잡는 순서:</strong> 운랑, 수렴귀 - 폭염귀, 풍석 - 암흑왕.</li>
+                                </ul>
+                                <div class='tip-box'><strong>💡 팁:</strong> 암흑왕의방에서 6시 방향으로 가면 나가질수 있으니 조심, 입구에 있는 돌은 입장 직전에 부수기.</div>
+                            `
+                        },
+                        {
+                            text: "3) 4차 승급",
+                            result: `
+                                <h3>[4차 승급 가이드]</h3>
+                                <div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/HZclfud5UkI' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div>
+                                <a href='4th promotion.png' target='_blank' title='클릭해서 확대 보기'><img src='4th promotion.png' class='zoom-img'></a>
+                                <h4>■ 4차 승급 추천 체력/마력</h4>
+                                <table class="stat-table">
+                                    <tr><th>직업</th><th>검성(전사)</th><th>태성(도적)</th><th>현자(주술)</th><th>진선(도사)</th></tr>
+                                    <tr><td>체력</td><td class="hp-text">140만</td><td class="hp-text">140만</td><td class="hp-text">65만</td><td class="hp-text">60만</td></tr>
+                                    <tr><td>마력</td><td class="mp-text">-</td><td class="mp-text">-</td><td class="mp-text">90만</td><td class="mp-text">75만</td></tr>
+                                </table>
+
+                                <ul>
+                                    <li>모든 직업 <strong>칼승</strong>을 추천합니다.</li>
+                                    <li><strong>필요 준비물:</strong> 장안성비서 여러장, 국내성비서 2장, 부여성비서 1장, 일본행 배 승선권 .</li>
+                                    <li><strong>보스 잡는 순서:</strong> 소호(소림사 가는길 동쪽), 전욱(국내성 1시방향), 제곡(부여성 1), 요제(일본 1시), 순제(광동성 7시), 반고(광동성 7시).</li>
+                                </ul>
+                                <div class='tip-box'><strong>💡 팁:</strong> 백호의 희원'첨은 파티구성원중 아래에 있을수록 힐량이 많으니 격수를 마지막에 초대하세요.</div>
+                            `
+                        }
+                    ]
+                }
+            },
+            {
+                text: "6. 레이드 보스공략",
+                icon: "menu6.png",
+                next: {
+                    title: "레이드 보스를 선택하세요",
+                    options: [
+                        {
+                            text: "1) 진백호왕",
+                            result: `
+                                <h3>[진백호왕 공략]</h3>
+                                <div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/pVbx90rAhWY' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div>
+                                <ul>
+                                    <li><strong>공략 내용:</strong> 1. 크르렁 <br>2. 크르르르 <br>3.크르르르르릉...!<br>
+                                    <a href='Tking 1.png' target='_blank' title='클릭해서 확대 보기'><img src='Tking 1.png' class='zoom-img'></a>
+                                    <a href='Tking 2.png' target='_blank' title='클릭해서 확대 보기'><img src='Tking 2.png' class='zoom-img'></a> 
+                                    <a href='Tking 3.png' target='_blank' title='클릭해서 확대 보기'><img src='Tking 3.png' class='zoom-img'></a>
+                                    <a href='Tking 4.png' target='_blank' title='클릭해서 확대 보기'><img src='Tking 4.png' class='zoom-img'></a>
+                                    <a href='Tking 5.png' target='_blank' title='클릭해서 확대 보기'><img src='Tking 5.png' class='zoom-img'></a>
+                                    <a href='Tking 6.png' target='_blank' title='클릭해서 확대 보기'><img src='Tking 6.png' class='zoom-img'></a>
+                                    <a href='backhoking1.png' target='_blank' title='클릭해서 확대 보기'><img src='backhoking1.png' class='zoom-img'></a>
+                                    <a href='backhoking2.png' target='_blank' title='클릭해서 확대 보기'><img src='backhoking2.png' class='zoom-img'></a></li>
+                                    <li><strong>드랍 아이템:</strong> 수정, 크리스탈, 진아광검, 진꼬마별봉, 꼬마별봉, 연노랑웨딩드레스, 연노랑망또.</li>
+                                </ul>
+                                <div class='tip-box'><strong>💡 주의사항:</strong> 크르르르르릉.... 의 범위가 넗으니 주의. <br> 크르릉은 백호왕의 오른손, 왼손, 정면공격. 
+                                <br> 입장 후 입구 쪽(11시방향, 9굴쪽)이나 출구 쪽 (1시방향, 수화룡의 방)으로 가면 보스 방을 나갈 수 있으니 주의(레이드 강제 종료) 
+                                <br> 1인 기준 경험치 64억 (떱헬 기준 48억, 격도술 기준 38억) </div>
+                            `
+                        },
+                        {
+                            text: "2) 해골왕",
+                            result: `
+                                <h3>[해골왕 공략]</h3>
+                                <div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/22GnKrGf3Xk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div>
+                                <ul>
+                                    <li><strong>공략 내용:</strong> 
+                                    <a href='skulking act1.png' target='_blank' title='클릭해서 확대 보기'><img src='skulking act1.png' class='zoom-img'></a>
+                                    <a href='skulking act2.png' target='_blank' title='클릭해서 확대 보기'><img src='skulking act2.png' class='zoom-img'></a>
+                                    <a href='skulking act3.png' target='_blank' title='클릭해서 확대 보기'><img src='skulking act3.png' class='zoom-img'></a>
+                                    <a href='skulking act4.png' target='_blank' title='클릭해서 확대 보기'><img src='skulking act4.png' class='zoom-img'></a>
+                                    <a href='skulking act5.png' target='_blank' title='클릭해서 확대 보기'><img src='skulking act5.png' class='zoom-img'></a>
+                                    </li>
+                                    <li><strong>드랍 아이템:</strong> 불의수정, 유성지의보패, 해골왕의뼈.</li>
+                                </ul>
+                                <div class='tip-box'><strong>💡 주의사항:</strong> 받아라와 나약한 녀석은 피하는 방향이 반대. 헷갈리기 쉬우니 주의.
+                                <br> 1인기준 경험치 160억 (격도 기준 132억, 격도술 기준 96억)</div>
+                            `
+                        },
+                        {
+                            text: "3) 진용왕용마",
+                            result: `
+                                <h3>[진용왕용마 공략]</h3>
+                                <div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/TEkQ-xTf1_o' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div>
+                                <a href='dragonking act1.png' target='_blank' title='클릭해서 확대 보기'><img src='dragonking act1.png' class='zoom-img'></a>
+                                <ul>
+                                    <li><strong>공략 내용:</strong> </li>
+                                    <li><strong>드랍 아이템:</strong> 묵, 감, 흑. 진룡의 어금니, 용무기 1검류.</li>
+                                </ul>
+                                <div class='tip-box'><strong>💡 주의사항:</strong> 화염주 후 5x5 공격이 너프 후 3x3으로 범위가 변경됨.
+                                <br> 1인기준 경험치 240억 (격도 기준 198억, 격도술 기준 144억)</div>
+                            `
+                        }
+                    ]
+                }
+            },
+            {
+                text: "7. 용궁가이드",
+                icon: "menu7.png",
+                iconClass: "icon-white",
+                next: {
+                    title: "용궁 가이드 항목을 선택하세요",
+                    options: [
+                        {
+                            text: "1) 메인퀘스트",
+                            result: `
+                                <h3>[용궁 메인퀘스트]</h3>
+                                <div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/DfXb7wTc2AY' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div>
+                                <ul>
+                                    <li><strong>시작 조건:</strong> 50레벨부터 가능. 해파리장군은 1차승급 이후, 청의태자는 2차승급 이후 퀘스트 받을수 있음.</li>
+                                    <li><strong>퀘스트 순서:</strong> 복어장군-게장군-문어장군-해마장군-인어장군-상어장군-해파리장군-청의태자.</li>
+                                </ul>
+                                <a href='rgu main 1.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 1.png' class='zoom-img'></a>
+                                <a href='rgu main 2.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 2.png' class='zoom-img'></a>
+                                <a href='rgu main 3.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 3.png' class='zoom-img'></a>
+                                <a href='rgu main 4.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 4.png' class='zoom-img'></a>
+                                <a href='rgu main 5.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 5.png' class='zoom-img'></a>
+                                <a href='rgu main 6.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 6.png' class='zoom-img'></a>
+                                <a href='rgu main 7.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 7.png' class='zoom-img'></a>
+                                <a href='rgu main 8.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 8.png' class='zoom-img'></a>
+                                <a href='rgu main 9.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu main 9.png' class='zoom-img'></a>
+                            `
+                        },
+                        {
+                            text: "2) 인어반지, 주홍투구",
+                            result: `
+                                <h3>[인어반지, 주홍투구 획득법]</h3>
+                                <h4>■ 인어반지</h4>
+                                <ul>
+                                    <li><strong>필요 재료:</strong> 문어다리, 게집게, 게등껍질, 해마꼬리.</li>
+                                    <li><strong>진행 방법:</strong> 반복가능 퀘스트. 인어반지의 내구도가 10만이라 낮은 편이기 때문에 인기가 떨어진편.</li>
+                                </ul>
+                                <a href='rgu inban.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu inban.png' class='zoom-img'></a>
+                                <hr>
+                                <h4>■ 주홍투구</h4>
+                                <ul>
+                                    <li><strong>준비물:</strong> 뇌진도 (두고개 날쌘다람쥐(하얀색) 드랍)</li>
+                                    <li><strong>진행 방법:</strong>
+                                        <ol>
+                                            <li>거북장군에게 퀘스트 수령</li>
+                                            <li>국내/부여장터(11시 방향)의 장돌뱅이와 대화 (별주부전)</li>
+                                            <li>12지신 - 동쪽 - 두고개에서 뇌진도 획득 후 장돌뱅이와 대화</li>
+                                            <li>12지신 - 동쪽 - 한고개에서 토깽이를 잡아 토끼의 간 획득 (놓아주지 않는다 선택)</li>
+                                            <li>거북장군과 대화 후 퀘스트 완료</li>
+                                        </ol>
+                                    </li>
+                                    <li><strong>아이템 능력치:</strong> 레벨 30이상, 무장-9, 내구 10만, 수리x<br>체마 500, 힘 3, 민지 2, 마방 1, 재생 2, Hit 3, Dam 3</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            text: "3) 정화의방패",
+                            result: `
+                                <h3>[정화의방패 획득법]</h3>
+                                <a href='rgu jungbang.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu jungbang.png' class='zoom-img'></a>
+                                <ul>
+                                    <li><strong>필요 재료:</strong> 홍옥3개(부여대미궁 홍옥상점), 숯의 정화 3개(불의수정2+참나무조각 30% 성공확률).</li>
+                                    <li><strong>진행 방법:</strong> 그림 참고.</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            text: "4) 괴력선창",
+                            result: `
+                                <h3>[괴력선창 획득법]</h3>
+                                <a href='rgu garek.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu garek.png' class='zoom-img'></a>
+                                <ul>
+                                    <li><strong>필요 재료:</strong> 산삼(쥐굴 서생원), 게등껍질, 게집게, 문어다리, 해마꼬리, 
+                                    <br>복어의심장 30개, 문어의심장 30개, 해마의심장 30개, 인어의심장 30개, 상어의심장 30개
+                                    <br>상어의핵 3개(가짜 상어장군), 불의수정 3개.</li>
+                                    <li><strong>진행 방법:</strong> 메인 퀘스트 중 상어장군까지 클리어시 시작가능.</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            text: "5) 심판의낫",
+                            result: `
+                                <h3>[심판의낫 획득법]</h3>
+                                <a href='rgu simnot.png' target='_blank' title='클릭해서 확대 보기'><img src='rgu simnot.png' class='zoom-img'></a>
+                                <ul>
+                                    <li><strong>필요 재료:</strong> 뇌진도(두고개 날쌘다람쥐(하얀색)), 수정3, 크리스탈3(실패확률 있음).</li>
+                                    <li><strong>진행 방법:</strong> 용궁 메인퀘스트 모두 완료후 퀘스트 시작가능.</li>
+                                </ul>
+                            `
+                        }
+                    ]
+                }
+            },
+            {
+                text: "8. 중국퀘스트 가이드",
+                icon: "menu8.png",
+                iconClass: "icon-white",
+                next: {
+                    title: "중국 퀘스트 지역을 선택하세요",
+                    options: [
+                        { 
+                            text: "1) 중국 북부", 
+                            result: `
+                                <h3>[중국 북부 퀘스트]</h3>
+                                <ul>
+                                  <a href='china susundosa.png' target='_blank' title='클릭해서 확대 보기'><img src='china susundosa.png' class='zoom-img'></a>
+                                  <a href='china jinhwangbogum.png' target='_blank' title='클릭해서 확대 보기'><img src='china jinhwangbogum.png' class='zoom-img'></a>
+                                  <a href='china blackdagger.png' target='_blank' title='클릭해서 확대 보기'><img src='china blackdagger.png' class='zoom-img'></a>
+                                  <a href='china bullo.png' target='_blank' title='클릭해서 확대 보기'><img src='china bullo.png' class='zoom-img'></a>
+                                  <a href='china hwagisang.png' target='_blank' title='클릭해서 확대 보기'><img src='china hwagisang.png' class='zoom-img'></a>
+                                  <a href='china steel cap.png' target='_blank' title='클릭해서 확대 보기'><img src='china steel cap.png' class='zoom-img'></a>
+                                    <li><strong>만리장성 수리(미구현):</strong> 벽돌을 가져다주어 보상 획득</li>
+                                    <li><strong>후말살:</strong> 보상 : 강철투구(내구도 30% 보호 기능)</li>
+                                    <li><strong>진황보검을 찾아서:</strong> 보상 : 강철손목보호대(내구도 15% 보호 기능)</li>
+                                </ul>
+                                <div class='tip-box'>강철투구 + 강철손목보호대 쌍으로 약 50%의 내구도 보호 기능<br>
+                                (100-30=70 (70%의 내구소모 라는 뜻), 70*(1-0.15)=59.5, 59.5*(1-0.15)=50.575 (49.4%의 내구도 보호 기능).<br>
+                                세시투구 + 강철손목보호대 쌍의 경우 약 64%의 내구도 보호 기능. <br>
+                                (100-50=50, 50*(1-0.15)=42.5, 42.5*0.85=36.125 (약 63.8%의 내구도 보호 기능)</div>
+                            `
+                        },
+                        { 
+                            text: "2) 중국 남부", 
+                            result: `
+                                <h3>[중국 남부 퀘스트]</h3>
+                                <ul>
+                                <a href='china south 1.png' target='_blank' title='클릭해서 확대 보기'><img src='china south 1.png' class='zoom-img'></a>
+                                <a href='china south 2.png' target='_blank' title='클릭해서 확대 보기'><img src='china south 2.png' class='zoom-img'></a>
+                                    <li><strong>봉마병 퀘스트:</strong> <br> 선행퀘 : 진황보검을 찾아서 <br> 보상: 금편의 목걸이 </li>
+                                    <li><strong>파마의 피리:</strong> 보상 : 마반경</li>
+                                </ul>
+                            `
+                        },
+                        { 
+                            text: "3) 도삭산", 
+                            result: `
+                                <h3>[도삭산 퀘스트]</h3>
+                                <ul>
+                                <a href='china dosacksan 1.png' target='_blank' title='클릭해서 확대 보기'><img src='china dosacksan 1.png' class='zoom-img'></a>
+                                <a href='china dosacksan 2.png' target='_blank' title='클릭해서 확대 보기'><img src='china dosacksan 2.png' class='zoom-img'></a>
+                                    <li><strong>100층 퀘스트:</strong> 보상 : 강철의 구두</li>
+                                    <li><strong>200층 퀘스트:</strong> 보상 : 봉마의 목걸이</li>
+                                    <li><strong>300층 퀘스트:</strong> 보상 : 다양함(동인각, 은인각, 봉마의목걸이, 등)</li>
+                                    <li><strong>400층 퀘스트:</strong> 보상 : 도삭산의 황금봉(1000층 입장재료)</li>
+                                    <li><strong>500층 퀘스트:</strong> 보상 : 수정의 귀걸이</li>
+                                    <li><strong>600층 퀘스트:</strong> 보상 : 수정해골(1000층 입장재료)</li>
+                                    <li><strong>700층 퀘스트:</strong> 보상 : 진비투구, 경비투구, 법비모, 격비모(업그레이드 가능, 업그레이드 미구현)</li>
+                                    <li><strong>800층 퀘스트:</strong> 보상 : 산신의옷(격수옷 무장-45, 비격수 무장 -40) </li>
+                                    <li><strong>900층 퀘스트:</strong> 보상 : 도삭산의 서(1000층 입장재료) </li>
+                                    <li><strong>1000층 퀘스트:</strong> 보상 : 1000층 상점 입장(캐릭당 1회만 가능)</li>
+                                    <li><strong>핵심 보상:</strong> 1000층 상점 입장 : 보무의목걸이, 시력회복의귀걸이, 투명구두 구입가능</li>
+                                </ul>
+                                <div class='tip-box'>도삭산은 층별로 난이도가 급격히 상승하므로 본인의 레벨에 맞는 층에서 진행하세요. <br> 800층 : 2차승급부터 입장가능 <br> 900층 : 4차승급부터 입장가능 </div>
+                            `
+                        }
+                    ]
+                }
+            },
+            {
+                text: "9. 환상의섬 가이드",
+                icon: "menu9.png",
+                iconClass: "icon-white",
+                next: {
+                    title: "환상의섬 항목을 선택하세요",
+                    options: [
+                        { 
+                            text: "1) 도시락 레시피", 
+                            result: `
+                                <h3>[도시락 제작 레시피]</h3>
+                                <p>레시피 정보를 담은 사진 두 장입니다.</p>
+                                <a href='bento 0.png' target='_blank' title='클릭해서 확대 보기'><img src='bento 0.png' class='zoom-img'></a>
+                                <a href='bento 1.png' target='_blank' title='클릭해서 확대 보기'><img src='bento 1.png' class='zoom-img'></a>
+                                <div class='tip-box'><strong>💡 팁:</strong> 재료 수집이 까다로우니 한 번에 많이 모아서 제작하는 것을 추천합니다.</div>
+                            `
+                        },
+                        { 
+                            text: "2) 아이템 제작", 
+                            result: `
+                                <h3>[환상의섬 아이템 제작]</h3>
+                                <ul>
+                                    <li><strong>저주의 단검:</strong> 타격시 일정확률로 저주격 </li>
+                                    <li><strong>거미독창:</strong> 타격시 일정확률로 중독격 </li>
+                                    <li><strong>주술방어구류:</strong> 문신방어구를 구입후 업그레이드 </li>
+                                </ul>
+                            `
+                        },
+                        { 
+                            text: "3) 퀘스트", 
+                            result: `
+                                <h3>[환상의섬 메인/서브 퀘스트]</h3>
+                                <ul>
+                                    <li><strong>명수사관 퀘스트(10만전 퀘스트):</strong> 섬의 미스터리를 풀고 보상 획득</li>
+                                    <li><strong>요술놀이구슬:</strong> 조합비 10만전, 15만전에 판매가능 </li>
+                                    <li><strong>진'고균의 영검 퀘스트:</strong> 화화의 미소 </li>
+                                    <li><strong>등대빛의 검 퀘스트:</strong> 선장의 일기 모으기 </li>
+                                    <li><strong>문화재보호 퀘스트:</strong> 토템을 가져다줘서 보상획득. 반룡곤(10개), 가시나무봉(15개) </li>
+                                    <li><strong>영웅의무기 퀘스트:</strong> 1차 : 향료, 늑대의송곳니100개, 거미의이빨100개 <br>
+                                    2차 : 작은 영웅상, 정령의결정(해적선장의망령 드랍), 토템 5개(직업별로 다름. 전사 : 대지, 도적 : 번개, 주술사 : 화염, 도사 : 바람), 1차무기</li>
+                                    <li><strong>정령의옷 퀘스트:</strong> 4종토템 3개씩, 여신의눈물(폭염도 북쪽 돌아다니면 이슬획득), 자연의인장 상, 하(폭염왕) 조합 </li>
+                                </ul>
+                            `
+                        }
+                    ]
+                }
+            },{
+                text: "10. 아카닉 사냥 영상",
+                 icon: "menu10.png",
+                 iconClass: "icon-white",
+                result: `
+                    <h3>[아카닉 사냥 영상]</h3>
+                    <div class="video-grid">
+                        <a href="https://www.youtube.com/watch?v=c_lAyiFTULc" target="_blank" class="video-card">
+                            <div class="video-title">1. 낮흉노 181검성 격도술 210억 (등반포함 226억) </div>
+                            <img src="https://img.youtube.com/vi/c_lAyiFTULc/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=MMrErgHQHyA" target="_blank" class="video-card">
+                            <div class="video-title">2. 낮흉노 224검성 격도술 215억 (등반포함 230억)</div>
+                            <img src="https://img.youtube.com/vi/MMrErgHQHyA/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://youtu.be/1nikjmtlKsk" target="_blank" class="video-card">
+                            <div class="video-title">3. 선녀의방 15자객 18명인 30분 12억 (1시간 24억) </div>
+                            <img src="https://img.youtube.com/vi/1nikjmtlKsk/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                    </div>
+                `
+            },
+            {
+                text: "11. 아카닉 쇼츠 (Shorts)",
+                  icon: "menu11.png",
+                 iconClass: "icon-white",
+                result: `
+                    <h3>[아카닉 쇼츠 모음]</h3>
+                    <div class="tip-box">클릭하시면 유튜브 쇼츠가 새 창으로 열립니다.</div>
+                    
+                    <div class="video-grid shorts-grid">
+                        <a href="https://youtube.com/shorts/yU8Q2b_l6LU" target="_blank" class="video-card">
+                            <div class="video-title">업데이트</div>
+                            <img src="https://img.youtube.com/vi/yU8Q2b_l6LU/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://youtube.com/shorts/LTd7kC3uGU0" target="_blank" class="video-card">
+                            <div class="video-title">진선의 향기</div>
+                            <img src="https://img.youtube.com/vi/LTd7kC3uGU0/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://youtube.com/shorts/Tz0EfDz9rhE" target="_blank" class="video-card">
+                            <div class="video-title">홍 진선</div>
+                            <img src="https://img.youtube.com/vi/Tz0EfDz9rhE/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://youtube.com/shorts/Gw_3ZSGi74M" target="_blank" class="video-card">
+                            <div class="video-title">2030년 옛날바람</div>
+                            <img src="https://img.youtube.com/vi/Gw_3ZSGi74M/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://youtube.com/shorts/sNstsUQ-YZo" target="_blank" class="video-card">
+                            <div class="video-title">업데이트에 지친 유저</div>
+                            <img src="https://img.youtube.com/vi/sNstsUQ-YZo/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/yh3g4etvj2M" target="_blank" class="video-card">
+                            <div class="video-title"> 높체마 유저의 비극</div>
+                            <img src="https://img.youtube.com/vi/yh3g4etvj2M/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/_zIbREvzuB8" target="_blank" class="video-card">
+                            <div class="video-title"> 옛창섭과 이탈유저 </div>
+                            <img src="https://img.youtube.com/vi/_zIbREvzuB8/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/01NqAAelC8Q" target="_blank" class="video-card">
+                            <div class="video-title"> 도삭산 900층 첫 등반</div>
+                            <img src="https://img.youtube.com/vi/01NqAAelC8Q/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/sDeJwA4oTqo" target="_blank" class="video-card">
+                            <div class="video-title"> 흉노 첫 사냥 </div>
+                            <img src="https://img.youtube.com/vi/sDeJwA4oTqo/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/C4Jutzq9eT0" target="_blank" class="video-card">
+                            <div class="video-title">격도술 파티 사냥</div>
+                            <img src="https://img.youtube.com/vi/C4Jutzq9eT0/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/Mb7XbpwQarY" target="_blank" class="video-card">
+                            <div class="video-title">폐급 도사의 삶</div>
+                            <img src="https://img.youtube.com/vi/Mb7XbpwQarY/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/2CwlprP3sO8" target="_blank" class="video-card">
+                            <div class="video-title">폐급 전사의 삶</div>
+                            <img src="https://img.youtube.com/vi/2CwlprP3sO8/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/A7h4XVDBQzY" target="_blank" class="video-card">
+                            <div class="video-title">폐급 도적의 삶</div>
+                            <img src="https://img.youtube.com/vi/A7h4XVDBQzY/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://www.youtube.com/shorts/BQajijGXKmA" target="_blank" class="video-card">
+                            <div class="video-title">폐급 술사의 삶</div>
+                            <img src="https://img.youtube.com/vi/BQajijGXKmA/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                    </div>
+                `
+            },
+            {
+                text: "★동귀어진 문파소개★",
+                  icon: "menu12.png",
+                result: `
+                    <h3>[★동귀어진★ 문파소개]</h3>
+                    <h4>■ 사냥 / 친목 문파 ★동귀어진★ 에서 신규 문원을 모십니다.</h4>
+                    <ul>
+                        <li><strong>가입 조건:</strong> 2차 승급 이상 우대 / 99렙은 성장 의지 있으면 환영</li>
+                        <li><strong>디스코드:</strong> 활발 (평균 참여자 10+@. 청취만 가능해도 OK.)</li>
+                        <li><strong>문파 규칙:</strong> 문파 파티·정보 공유 활발. 사냥/레이드 기본 매너 갖춘 분만 가능하며 비매너, 여미새, 철새 및 문파원에게 과도한 요구하시는 분은 컷!</li>
+                    </ul>
+                    <hr>
+                    <h4>■ 문파 특징</h4>
+                    <ul>
+                        <li>사냥 / 친목 중심</li>
+                        <li>사냥 꿀팁 공유</li>
+                        <li>승급 / 퀘스트 모집 및 지원</li>
+                        <li>즐겁게 오래 게임하는 분위기</li>
+                        <li><strong>어느 연합에도 속해있지 않은! 공성 자율 참여!</strong></li>
+                        <li>활발히 활동하실 분 대환영!!</li>
+                    </ul>
+                    <div class='tip-box'>
+                        아무나 받지 않습니다.<br>
+                        함께 성장하고 소통할 사람만 모여주시면 좋겠습니다.<br>
+                        <strong>비매너 유저는 정중히 사절합니다.</strong>
+                    </div>
+                    <hr>
+                    <h4>■ 가입 문의</h4>
+                    <ul>
+                        <li><strong>인게임 문의:</strong> 오시멘, 갈리오, 앤써니, 체력회복, 성두</li>
+                        <li><strong>카카오톡 문의:</strong> <a href="https://open.kakao.com/o/gf20biNh" target="_blank" style="color: #007bff; text-decoration: underline; font-weight: bold;">오픈채팅방 바로가기</a></li>
+                    </ul>
+                    <div class='tip-box'>
+                        <strong>[ 간부진 안내 ]</strong><br><br>
+                        👑 <strong>문주:</strong> 오시멘<br>
+                        🛡️ <strong>부문주:</strong> 갈리오, 앤써니, 체력회복, 성두<br>
+                        🤝 <strong>동맹문파:</strong> 만두단, 약속
+                    </div>
+                `
+            }
+        ]
+    };
+    // ===== 트리 메뉴 빌드 =====
+    function buildTree(node, container, prefix = "") {
+        if (node.options) {
+            node.options.forEach(opt => {
+                const li = document.createElement('li');
+                li.className = "tree-item";
+                const a = document.createElement('a');
+                a.className = "tree-link";
+                a.innerText = prefix + opt.text;
+                
+                li.appendChild(a);
+
+                if (opt.next && opt.next.options) {
+                    const subUl = document.createElement('ul');
+                    subUl.className = "tree-sub";
+                    subUl.style.display = 'block'; 
+                    buildTree(opt.next, subUl, "");
+                    li.appendChild(subUl);
+
+                    a.onclick = (e) => { 
+                        e.preventDefault();
+                        historyStack = [guideData]; 
+                        render(opt.next || opt); 
+                        subUl.style.display = subUl.style.display === 'none' ? 'block' : 'none';
+                    };
+                } else {
+                    a.onclick = () => { 
+                        historyStack = [guideData]; 
+                        render(opt.next || opt); 
+                    };
+                }
+                container.appendChild(li);
+            });
+        }
+    }
+
+    // ===== 화면 렌더링 =====
+    function render(node, isBack = false) {
+        currentPage = node.title || node.text;
+        if (!isBack) {
+            historyStack.push(node);
+        }
+        
+        contentEl.innerHTML = '';
+
+        if (node.result) {
+            questionEl.innerText = node.text || "가이드 결과";
+            contentEl.innerHTML = `<div class="result">${node.result}</div>`;
+        } else {
+            questionEl.innerText = node.title || "항목을 선택하세요";
+
+            if (node.image) {
+                const imgDiv = document.createElement('div');
+                imgDiv.innerHTML = node.image;
+                contentEl.appendChild(imgDiv);
+            }
+
+            if (node.viewType === 'grid') {
+                // ===== 아이콘 카드형 목차 (3x3 그리드) =====
+                contentEl.classList.remove('btn-container');
+                const gridDiv = document.createElement('div');
+                gridDiv.className = 'menu-grid';
+                node.options.forEach(opt => {
+                    const card = document.createElement('div');
+                    card.className = 'menu-card';
+                    card.innerHTML = `
+                        <img src="${opt.icon}" alt="${opt.text}" class="${opt.iconClass || ''}">
+                        <span class="menu-label">${opt.text}</span>
+                    `;
+                    card.onclick = () => {
+                        if (opt.next) {
+                            render(opt.next);
+                        } else {
+                            render(opt);
+                        }
+                    };
+                    gridDiv.appendChild(card);
+                });
+                contentEl.appendChild(gridDiv);
+            } else {
+                contentEl.classList.add('btn-container');
+                node.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.innerText = opt.text;
+                    btn.onclick = () => {
+                        if (opt.next) {
+                            render(opt.next);
+                        } else {
+                            render(opt); 
+                        }
+                    };
+                    contentEl.appendChild(btn);
+                });
+            }
+        }
+
+        if (historyStack.length > 1) {
+            navBtns.style.display = 'flex';
+        } else {
+            navBtns.style.display = 'none';
+        }
+    }
+
+    function goBack() {
+        if (historyStack.length > 1) {
+            historyStack.pop(); 
+            const prevNode = historyStack[historyStack.length - 1]; 
+            render(prevNode, true); 
+        }
+    }
+
+    function goHome() {
+        historyStack = [];
+        render(guideData);
+    }
+
+    // ===== 검색 기능 =====
+    function searchGuide(keyword) {
+        const items = document.querySelectorAll('.tree-item');
+        items.forEach(el => {
+            const linkText = el.querySelector('.tree-link').innerText.toLowerCase();
+            if (linkText.includes(keyword.toLowerCase())) {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        });
+    }
+
+ 
+
+    // 초기 실행
+    buildTree(guideData, treeMenuEl);
+    render(guideData);
+  
+
+// ===== 위젯 접기/펴기 기능 =====
+ let isWidgetOpen = true;
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const btn = document.getElementById('toc-toggle-btn');
+    sidebar.classList.toggle('sidebar-open');
+    if (sidebar.classList.contains('sidebar-open')) {
+        btn.innerText = '▲ 목차 접기';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        btn.innerText = '☰ 목차 접기';
+    }
+}
+
+function toggleWidgets() {
+    const widgetGroup = document.getElementById('collapsible-widgets');
+    const toggleBtn = document.getElementById('toggle-widget-btn');
+    
+    isWidgetOpen = !isWidgetOpen;
+    if (isWidgetOpen) {
+        widgetGroup.classList.remove('widgets-hidden');
+        toggleBtn.innerText = '▼ 위젯 접기';
+    } else {
+        widgetGroup.classList.add('widgets-hidden');
+        toggleBtn.innerText = '▲ 위젯 펴기';
+    }
+}
+    </script>
 </body>
 </html>
