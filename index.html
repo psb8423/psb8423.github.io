@@ -2,11 +2,10 @@
 <html lang="ko">
 <head>
     <meta name="google-adsense-account" content="ca-pub-5219151531650606">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5219151531650606" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5219151531650606" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아카닉 옛날바람 가이드</title>
-   <meta name="google-adsense-account" content="ca-pub-5219151531650606">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -30,7 +29,7 @@
         .helpful-links a { color: #007bff; text-decoration: none; font-weight: bold; transition: 0.2s; }
         .helpful-links a:hover { color: #0056b3; text-decoration: underline; }
 
-           /* 디지털 시계 및 안내문 스타일 */
+        /* 디지털 시계 및 안내문 스타일 */
         .clock-widget { 
             background: linear-gradient(135deg, #87CEEB 0%, #192f6a 100%);
             padding: 10px 10px; 
@@ -102,7 +101,7 @@
         .home-btn { background: linear-gradient(135deg, #e35362, #c82333); }
         .home-btn:hover { background: linear-gradient(135deg, #dc3545, #b21f2d); }
         
-/* 접기/펴기 버튼 및 그룹 스타일 */
+        /* 접기/펴기 버튼 및 그룹 스타일 */
         #toggle-widget-btn { font-size: 0.75rem; padding: 6px 12px; border-radius: 12px; background: #343a40; color: white; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s; align-self: flex-end; font-weight: bold; }
         #toggle-widget-btn:hover { background: #555; }
 
@@ -158,25 +157,22 @@
             text-align: center;
             margin-bottom: 8px;
             line-height: 1.4;
-            /* 제목이 길어도 잘리지 않고 여러 줄로 자연스럽게 넘어가도록 설정 */
             word-break: keep-all;
             overflow-wrap: break-word;
             width: 100%;
         }
         .video-thumb {
             width: 100%;
-            aspect-ratio: 16 / 9; /* 기본 가로형 썸네일 비율 */
+            aspect-ratio: 16 / 9;
             background-color: #000;
             border: 2px solid #ddd;
             border-radius: 5px;
             object-fit: cover;
         }
-        /* 만약 쇼츠를 세로형 썸네일로 쓰고 싶다면 아래 클래스 사용 */
         .shorts-grid .video-thumb {
             aspect-ratio: 9 / 16;
         }
 
-        /* 모바일에서는 2열로 보이도록 반응형 설정 추가 */
         @media (max-width: 500px) {
             .video-grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -229,7 +225,6 @@
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
         }
-        /* 검정색 아이콘을 흰색으로 강제 변환 (파일 자체가 흰색이 아닐 때 사용) */
         .menu-card img.icon-white {
             filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
         }
@@ -246,29 +241,29 @@
             .menu-grid { grid-template-columns: repeat(2, 1fr); }
         }
        
-  /* 모바일 대응 */
-@media (max-width: 768px) {
-    body { flex-direction: column; }
-    #sidebar { width: 100%; height: auto; position: relative; padding: 15px; box-sizing: border-box; display: none; }
-    #sidebar.sidebar-open { display: flex; }
-    #main-container { padding: 20px 10px; }
-    .watermark-container { position: static; width: 100%; max-width: 320px; margin: 0 auto 18px; align-items: center; }
-    #toc-toggle-btn { display: block; width: 100%; }
-}
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            #sidebar { width: 100%; height: auto; position: relative; padding: 15px; box-sizing: border-box; display: none; }
+            #sidebar.sidebar-open { display: flex; }
+            #main-container { padding: 20px 10px; }
+            .watermark-container { position: static; width: 100%; max-width: 320px; margin: 0 auto 18px; align-items: center; }
+            #toc-toggle-btn { display: block; width: 100%; }
+        }
 
-#toc-toggle-btn {
-    display: none;
-    background: #1e3a5f;
-    color: #fff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-#toc-toggle-btn:hover { background: #16304f; }
+        #toc-toggle-btn {
+            display: none;
+            background: #1e3a5f;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #toc-toggle-btn:hover { background: #16304f; }
     </style>
 </head>
 <body>
@@ -293,18 +288,15 @@
             <div class="notice-text" id="daily-notice"></div>
         </div>
 
-      <div class="helpful-links">
+        <div class="helpful-links">
             <div class="link-title">도움이 되는 사이트</div>
             <a href="https://oldbaramtools.com/" target="_blank">1) 옛바도구</a>
             <a href="https://arca.live/b/baramclassic" target="_blank">2) 옛날바람채널</a>
             <a href="https://psb8423.github.io/archonic-baram-party/" target="_blank">3) 옛바 파티매칭</a>
         </div>
-      
-
-     
-        </div>
     </div>
 </div>
+
 <nav id="sidebar">
     <h2>목차 바로가기</h2>
     <input type="text" id="searchBox" placeholder="검색..." style="width:100%; padding:8px; margin-bottom:10px; border-radius: 5px; border: none; box-sizing: border-box;" oninput="searchGuide(this.value)">
@@ -385,7 +377,6 @@
             return;
         }
 
-        // 오늘의 21:00 시간을 구함
         const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0);
         let diff = next - now;
 
@@ -401,7 +392,7 @@
 
         if (dayOfWeek >= 2 && dayOfWeek <= 5) {
             el.innerText = `다음 공성까지: ${timeString}`;
-        } else { // 0, 6 (토, 일)
+        } else {
             el.innerText = `이벤트 시작까지: ${timeString}`;
         }
     }
@@ -437,7 +428,7 @@
         <div class='tip-box'>※ 영웅의길 X, 도와주는 사람 X 가정의 루트. 흉가 이전 사냥터는 호박이 드랍되지 않음. </div>
     `;
 
-   const guideData = {
+    const guideData = {
         title: "아카닉 옛날바람 가이드",
         viewType: "grid",
         options: [
@@ -466,13 +457,10 @@
                     options: [
                         { 
                             text: "1) 주술사", 
-                            
                             next: {
                                 title: "주술사 승급 기준을 선택하세요",
-                                image: "<a href='2026 hunt 2.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 2.png' class='zoom-img'></a>",
-                                "<a href='sulsa 130.webp' target='_blank' title='클릭해서 확대 보기'><img src='sulsa 130.webp' class='zoom-img'></a>"
+                                image: "<a href='2026 hunt 2.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 2.png' class='zoom-img'></a><a href='sulsa 130.webp' target='_blank' title='클릭해서 확대 보기'><img src='sulsa 130.webp' class='zoom-img'></a>",
                                 options: [
-                                   
                                     { text: "1) 1~98레벨 (육성)", result: level98Guide },
                                     { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 주술사] 사냥터</h3><ul><li><strong>마력 3만~:</strong> 흉가 / 숲지대 (시간당 6~8억)</li></ul><a href='soop vs hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='soop vs hungga.png' class='zoom-img'></a><div class='tip-box'><strong>💡 아카닉 팁:</strong><br>주술사는 쩔/밀대와 직접 사냥 효율 차이가 큽니다. 경쿠가 있다면 쩔 받는 것을 추천합니다. 숲지대가 경험치가 높아도 <strong>흉가를 추천하는 이유</strong>는, 당장 번 돈을 쩔에 쓰면 경험치 상으로 훨씬 이득이기 때문입니다.</div>` },
                                     { text: "3) 1차 (술사)", result: `<h3>[1차 술사] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/YAyILbR7gXw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>마력 6만~:</strong> 신극지방 (시간당 9~12억)</li></ul><div class='tip-box'><strong>💡 아카닉 추천 루트:</strong><br>흉가 + 높산적(무사)쩔 → <strong>(1차) 신극지방 + 높산적(무사)쩔</strong><br><br>※ 선녀 쩔: 시간당 30억<br>※ 무사/산적 쩔: 시간당 45~55억</div>` },
@@ -486,21 +474,18 @@
                             text: "2) 전사", 
                             next: {
                                 title: "전사 승급 기준을 선택하세요",
-                           image: "<a href='2026 hunt 1.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 1.png' class='zoom-img'></a>",
+                                image: "<a href='2026 hunt 1.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 1.png' class='zoom-img'></a>",
                                 options: [
-                                     
                                     { text: "1) 1~98레벨 (육성)", result: level98Guide },
-                                    { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 전사] 사냥터</h3></h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 3만~:</strong> 흉가 (시간당 10~15억)</li></ul><a href='warrior hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior hungga.png' class='zoom-img'></a><ul><a href='ghost house map.png' target='_blank' title='클릭해서 확대 보기'><img src='ghost house map.png' class='zoom-img'></a>
+                                    { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 전사] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 3만~:</strong> 흉가 (시간당 10~15억)</li></ul><a href='warrior hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior hungga.png' class='zoom-img'></a><ul><a href='ghost house map.png' target='_blank' title='클릭해서 확대 보기'><img src='ghost house map.png' class='zoom-img'></a>
           <ul>
 <li><strong>체력 2만~(4방컷):</strong> 흉가 1바퀴 20분정도 (시간당 7억)</li>
 <li><strong>체력 3.5만~(동귀 1방컷):</strong> 흉가 1바퀴 10분 정도(시간당 14억) *공력주입 자주 필요</li>
 <li><strong>체력 6.5만~(백호참 1방컷):</strong> 흉가 1바퀴 10분 정도(시간당 14억)</li>
 <a href='nono banban.webp' target='_blank' title='클릭해서 확대 보기'><img src='nono banban.webp' class='zoom-img'></a>
 </ul><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 선녀 쩔: 시간당 30억<br>※ 무사/산적 쩔: 시간당 45~55억</div>` },
-                                    { text: "3) 1차 (검객)", result: `<h3>[1차 검객] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'><div class='video-box'></iframe></div><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/1nikjmtlKsk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 8만~:</strong> 닌자 / 선녀 (시간당 22~30억)</li><li><strong>체력 25~30만:</strong> 높산적 밀격 (시간당 45~55억)</li></ul><a href='warrior ninja.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior ninja.png' class='zoom-img'></a><a href='warrior sanjuck.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sanjuck.png' class='zoom-img'></a><ul><a href='sanjuck map.png' target='_blank' title='클릭해서 확대 보기'><img src='sanjuck map.png' class='zoom-img'></a>
- ` },
-                                    { text: "4) 2차 (검제)", result: `<h3>[2차 검제] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/E382Ctv87Xw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 30~55만:</strong> 선녀 + 닌자 2굴 (시간당 30~32억)</li><li><strong>체력 55~80만:</strong> 도삭산 800층 (시간당 45~55억)</li><li><strong>체력 80~100만:</strong> 선비족 (격도술: 60억 / 밀격: 80~90억)</li></ul><a href='warrior sunnya.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sunnya.png' class='zoom-img'></a><a href='warrior 800.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 800.png' class='zoom-img'></a><ul><a href='sunnya 1 9.png' target='_blank' title='클릭해서 확대 보기'><img src='sunnya 1 9.png' class='zoom-img'></a><ul><a href='sunnya 10 17.png' target='_blank' title='클릭해서 확대 보기'><img src='sunnya 10 17.png' class='zoom-img'></a>
-      <div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 2차 선비 쩔(밀대): 시간당 80~90억</div>` },
+                                    { text: "3) 1차 (검객)", result: `<h3>[1차 검객] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/1nikjmtlKsk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 8만~:</strong> 닌자 / 선녀 (시간당 22~30억)</li><li><strong>체력 25~30만:</strong> 높산적 밀격 (시간당 45~55억)</li></ul><a href='warrior ninja.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior ninja.png' class='zoom-img'></a><a href='warrior sanjuck.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sanjuck.png' class='zoom-img'></a><ul><a href='sanjuck map.png' target='_blank' title='클릭해서 확대 보기'><img src='sanjuck map.png' class='zoom-img'></a>` },
+                                    { text: "4) 2차 (검제)", result: `<h3>[2차 검제] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/qCHiE24Kk6k' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/E382Ctv87Xw' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 30~55만:</strong> 선녀 + 닌자 2굴 (시간당 30~32억)</li><li><strong>체력 55~80만:</strong> 도삭산 800층 (시간당 45~55억)</li><li><strong>체력 80~100만:</strong> 선비족 (격도술: 60억 / 밀격: 80~90억)</li></ul><a href='warrior sunnya.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sunnya.png' class='zoom-img'></a><a href='warrior 800.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 800.png' class='zoom-img'></a><ul><a href='sunnya 1 9.png' target='_blank' title='클릭해서 확대 보기'><img src='sunnya 1 9.png' class='zoom-img'></a><a href='sunnya 10 17.png' target='_blank' title='클릭해서 확대 보기'><img src='sunnya 10 17.png' class='zoom-img'></a><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 2차 선비 쩔(밀대): 시간당 80~90억</div>` },
                                     { text: "5) 3차 (검황)", result: `<h3>[3차 검황] 사냥터 (선비족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/58KK3Ww67X4' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><a href='sunbi exp 1.png' target='_blank' title='클릭해서 확대 보기'><img src='sunbi exp 1.png' class='zoom-img'></a><li><strong>체력 100~140만:</strong> 선비족 <br> 격도술: 60~65억(한바퀴 3.6억, 17바퀴 61.2억) <br> 반반: 90~100억(한바퀴 5억, 18바퀴 90억) </li></ul><a href='warrior sunbi.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior sunbi.png' class='zoom-img'></a><div class='tip-box'><strong>💡 쩔/밀대 참고:</strong><br>※ 3차 선비 밀대: 시간당 90~100억</div>` },
                                     { text: "6) 4차 (검성)", result: `<h3>[4차 검성] 사냥터 (흉노족)</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/-MyhwWNkF-Y' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 140~220만:</strong> 낮 흉노 (격도술: 160~220억 / 격도: 150~220억)</li><li><strong>체력 240만~:</strong> 도삭산 900층 (격도술: 300~350억)</li></ul><a href='warrior lowhungno.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior lowhungno.png' class='zoom-img'></a><a href='warrior 900.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior 900.png' class='zoom-img'></a><a href='hungno exp list.png' target='_blank' title='클릭해서 확대 보기'><img src='hungno exp list.png' class='zoom-img'></a><div class='tip-box'><strong>💡 참고:</strong><br>※ 격도: 82.5% (75% x 1.1)<br>※ 격도술: 60% (50% x 1.1 x 1.1)</div>` }
                                 ]
@@ -512,7 +497,6 @@
                                 title: "도적 승급 기준을 선택하세요",
                                 image: "<a href='2026 hunt 3.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 3.png' class='zoom-img'></a>",
                                 options: [
-                                   
                                     { text: "1) 1~98레벨 (육성)", result: level98Guide },
                                     { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 도적] 사냥터</h3><div class='video-box'><iframe width='100%' height='250' src='https://www.youtube.com/embed/Uv4rDLG4Quk' frameborder='0' allowfullscreen referrerpolicy='strict-origin-when-cross-origin'></iframe></div><ul><li><strong>체력 3만~:</strong> 흉가 (시간당 10~15억)</li></ul><a href='warrior hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior hungga.png' class='zoom-img'></a><ul>
 <li><strong>체력 2만~(4방컷):</strong> 흉가 1바퀴 20분정도 (시간당 7억)</li>
@@ -535,7 +519,6 @@
                                 title: "도사 승급 기준을 선택하세요",
                                 image: "<a href='2026 hunt 4.png' target='_blank' title='클릭해서 확대 보기'><img src='2026 hunt 4.png' class='zoom-img'></a>",
                                 options: [
-                                     
                                     { text: "1) 1~98레벨 (육성)", result: level98Guide },
                                     { text: "2) 99레벨 (지존)", result: `<h3>[99레벨 도사] 사냥터</h3><ul><li><strong>흉가:</strong> 시간당 9~12억</li></ul><a href='warrior hungga.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior hungga.png' class='zoom-img'></a>` },
                                     { text: "3) 1차 (도인)", result: `<h3>[1차 도인] 사냥터</h3><ul><li><strong>흉가:</strong> 시간당 12~15억</li><li><strong>닌자의방:</strong> 시간당 21억 내외</li></ul><a href='warrior ninja.png' target='_blank' title='클릭해서 확대 보기'><img src='warrior ninja.png' class='zoom-img'></a>` },
@@ -998,10 +981,11 @@
                         }
                     ]
                 }
-            },{
+            },
+            {
                 text: "10. 아카닉 사냥 영상",
-                 icon: "menu10.png",
-                 iconClass: "icon-white",
+                icon: "menu10.png",
+                iconClass: "icon-white",
                 result: `
                     <h3>[아카닉 사냥 영상]</h3>
                     <div class="video-grid">
@@ -1022,8 +1006,8 @@
             },
             {
                 text: "11. 아카닉 쇼츠 (Shorts)",
-                  icon: "menu11.png",
-                 iconClass: "icon-white",
+                icon: "menu11.png",
+                iconClass: "icon-white",
                 result: `
                     <h3>[아카닉 쇼츠 모음]</h3>
                     <div class="tip-box">클릭하시면 유튜브 쇼츠가 새 창으로 열립니다.</div>
@@ -1088,9 +1072,31 @@
                     </div>
                 `
             },
-          
+            {
+                text: "12. 창병 육성기",
+                icon: "menu12.png",
+                iconClass: "icon-white",
+                result: `
+                    <h3>[창병 육성기 모음]</h3>
+                    <div class="video-grid">
+                        <a href="https://youtu.be/40XSbPMXrTk" target="_blank" class="video-card">
+                            <div class="video-title">창병 육성 1화</div>
+                            <img src="https://img.youtube.com/vi/40XSbPMXrTk/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://youtu.be/lRf2zEOd22U" target="_blank" class="video-card">
+                            <div class="video-title">창병 육성 2화</div>
+                            <img src="https://img.youtube.com/vi/lRf2zEOd22U/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                        <a href="https://youtu.be/-1xFDYpvOU4" target="_blank" class="video-card">
+                            <div class="video-title">창병 육성 3화</div>
+                            <img src="https://img.youtube.com/vi/-1xFDYpvOU4/hqdefault.jpg" alt="썸네일" class="video-thumb">
+                        </a>
+                    </div>
+                `
+            }
         ]
     };
+
     // ===== 트리 메뉴 빌드 =====
     function buildTree(node, container, prefix = "") {
         if (node.options) {
@@ -1149,7 +1155,6 @@
             }
 
             if (node.viewType === 'grid') {
-                // ===== 아이콘 카드형 목차 (3x3 그리드) =====
                 contentEl.classList.remove('btn-container');
                 const gridDiv = document.createElement('div');
                 gridDiv.className = 'menu-grid';
@@ -1220,41 +1225,38 @@
         });
     }
 
- 
-
     // 초기 실행
     buildTree(guideData, treeMenuEl);
     render(guideData);
-  
 
-// ===== 위젯 접기/펴기 기능 =====
- let isWidgetOpen = true;
+    // ===== 위젯/사이드바 접기/펴기 기능 =====
+    let isWidgetOpen = true;
 
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const btn = document.getElementById('toc-toggle-btn');
-    sidebar.classList.toggle('sidebar-open');
-    if (sidebar.classList.contains('sidebar-open')) {
-        btn.innerText = '▲ 목차 접기';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        btn.innerText = '☰ 목차 접기';
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const btn = document.getElementById('toc-toggle-btn');
+        sidebar.classList.toggle('sidebar-open');
+        if (sidebar.classList.contains('sidebar-open')) {
+            btn.innerText = '▲ 목차 접기';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            btn.innerText = '☰ 목차 펴기';
+        }
     }
-}
 
-function toggleWidgets() {
-    const widgetGroup = document.getElementById('collapsible-widgets');
-    const toggleBtn = document.getElementById('toggle-widget-btn');
-    
-    isWidgetOpen = !isWidgetOpen;
-    if (isWidgetOpen) {
-        widgetGroup.classList.remove('widgets-hidden');
-        toggleBtn.innerText = '▼ 위젯 접기';
-    } else {
-        widgetGroup.classList.add('widgets-hidden');
-        toggleBtn.innerText = '▲ 위젯 펴기';
+    function toggleWidgets() {
+        const widgetGroup = document.getElementById('collapsible-widgets');
+        const toggleBtn = document.getElementById('toggle-widget-btn');
+        
+        isWidgetOpen = !isWidgetOpen;
+        if (isWidgetOpen) {
+            widgetGroup.classList.remove('widgets-hidden');
+            toggleBtn.innerText = '▼ 위젯 접기';
+        } else {
+            widgetGroup.classList.add('widgets-hidden');
+            toggleBtn.innerText = '▲ 위젯 펴기';
+        }
     }
-}
-    </script>
+</script>
 </body>
 </html>
