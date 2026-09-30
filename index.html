@@ -77,6 +77,19 @@
         .hp-text { color: #d32f2f; font-weight: bold; }
         .mp-text { color: #007bff; font-weight: bold; }
 
+        /* 주간 시세 표 */
+        .price-warning { background: #fdecea; border: 1px solid #f5c2c0; color: #b71c1c; font-weight: bold; padding: 10px 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 0.9rem; word-break: keep-all; }
+        .price-table { font-size: 0.9rem; }
+        .price-table th small { font-weight: normal; color: #666; }
+        .price-table td.price-name { text-align: left; padding-left: 10px; font-weight: bold; color: #333; }
+        .price-table .price-icon { width: 24px; height: 24px; object-fit: contain; vertical-align: middle; margin-right: 6px; }
+        .price-table .price-link { color: #0056b3; text-decoration: underline; }
+        .price-table .price-link:hover { color: #003d80; }
+        .price-table .price-short { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 8px; background: #e7f1ff; color: #0056b3; font-size: 0.72rem; font-weight: bold; }
+        .price-table td.price-buy { color: #007bff; font-weight: bold; white-space: nowrap; }
+        .price-table td.price-sell { color: #d32f2f; font-weight: bold; white-space: nowrap; }
+        .price-table tr:nth-child(even) td { background: #fafbfc; }
+
         /* 이미지 확대 효과 CSS */
         .zoom-img { width: 100%; border-radius: 10px; margin: 15px 0; transition: 0.2s; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: block; }
         .zoom-img:hover { filter: brightness(0.85); }
@@ -270,6 +283,67 @@
     }
     setInterval(updateEventTimer, 1000);
     updateEventTimer();
+
+    // ===== 주간 시세 데이터 (여기만 고치면 됨) =====
+    // name: 아이템 이름 / short: 줄임말(없으면 "") / buy: 삽니다(최소가) / sell: 팝니다(최대가)
+    // id: 옛바도구 아이템 번호 (oldbaramtools.com/item/번호 의 숫자, 모르면 "")
+    // img: 아이템 그림 파일명 (예: "item_yongban.png", 없으면 "")
+    const priceDate = "9/27";       // 기준일
+    const priceUnit = "만전";        // 가격 단위
+    const priceData = [
+        { name: "용왕의 반지",     short: "용반",     buy: 70,  sell: 80,  id: "",   img: "" },
+        { name: "용왕의 투구",     short: "용투",     buy: 40,  sell: 50,  id: "19", img: "" },
+        { name: "심판의낫",        short: "심낫",     buy: 740, sell: 800, id: "",   img: "" },
+        { name: "정화의방패",      short: "정방",     buy: 310, sell: 330, id: "",   img: "" },
+        { name: "괴력선창",        short: "괴력",     buy: 200, sell: 210, id: "",   img: "" },
+        { name: "녹호박무기",      short: "",         buy: 20,  sell: 25,  id: "",   img: "" },
+        { name: "녹호박팔찌(쌍)",  short: "",         buy: 2,   sell: 3,   id: "",   img: "" },
+        { name: "진주반지(쌍)",    short: "진반",     buy: 6,   sell: 8,   id: "",   img: "" },
+        { name: "타라의남(여)자옷", short: "타라",    buy: 5,   sell: 7,   id: "",   img: "" },
+        { name: "이가닌자의검",    short: "이가",     buy: 4,   sell: 5,   id: "",   img: "" },
+        { name: "팔괘",            short: "",         buy: 12,  sell: 15,  id: "",   img: "" },
+        { name: "간괘",            short: "",         buy: 2,   sell: 2.5, id: "",   img: "" },
+        { name: "수화룡의비늘",    short: "수화룡",   buy: 16,  sell: 18,  id: "",   img: "" },
+        { name: "외형슬롯이용권",  short: "외형",     buy: 100, sell: 110, id: "",   img: "" },
+        { name: "염색약",          short: "",         buy: 12,  sell: 15,  id: "",   img: "" },
+        { name: "방송쿠폰",        short: "방쿠",     buy: 1.8, sell: 1.8, id: "",   img: "" },
+        { name: "캐릭슬롯확장권",  short: "캐릭슬롯", buy: 18,  sell: 22,  id: "",   img: "" },
+        { name: "산신의정화",      short: "산신옷",   buy: 15,  sell: 20,  id: "",   img: "" },
+        { name: "대마령봉",        short: "대마",     buy: 0.5, sell: 1,   id: "",   img: "" },
+        { name: "환두대도",        short: "환두",     buy: 1,   sell: 3,   id: "",   img: "" }
+    ];
+
+    // 시세표 HTML 자동 생성 (수정할 필요 없음)
+    function buildPriceHtml() {
+        let rows = "";
+        priceData.forEach(item => {
+            const img = item.img ? `<img src="${item.img}" alt="" class="price-icon">` : "";
+            const short = item.short ? `<span class="price-short">${item.short}</span>` : "";
+            const name = item.id
+                ? `<a href="https://oldbaramtools.com/item/${item.id}" target="_blank" rel="noopener" class="price-link" title="옛바도구에서 보기">${item.name}</a>`
+                : item.name;
+            rows += `<tr>
+                <td class="price-name">${img}${name}${short}</td>
+                <td class="price-buy">${item.buy}</td>
+                <td class="price-sell">${item.sell}</td>
+            </tr>`;
+        });
+        return `
+            <div class="price-warning">⚠️ 실제 시세와 다를 수 있으니 거래 시 항상 주의 바랍니다.</div>
+            <h3>[주간 시세] ${priceDate} 기준</h3>
+            <table class="stat-table price-table">
+                <tr><th>아이템</th><th>삽니다<br><small>(최소가)</small></th><th>팝니다<br><small>(최대가)</small></th></tr>
+                ${rows}
+            </table>
+            <div class='tip-box'>
+                <strong>📌 안내</strong><br>
+                ※ 단위: ${priceUnit}<br>
+                ※ 옛날바람 디스코드 삽니다/팝니다 채널 기준으로 정리한 <strong>참고용 시세</strong>입니다.<br>
+                ※ 파란 밑줄 아이템 이름을 누르면 옛바도구 상세 페이지가 새 창으로 열립니다.<br>
+                ※ 매주 갱신 예정
+            </div>
+        `;
+    }
 
     // ===== 가이드 데이터 =====
     const level98Guide = `
@@ -970,6 +1044,12 @@
                         </a>
                     </div>
                 `
+            },
+            {
+                text: "13. 주간 시세",
+                icon: "menu13.png",
+                iconClass: "icon-white",
+                result: buildPriceHtml()
             }
         ]
     };
