@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- 카카오톡/디스코드/네이버 링크 미리보기 (Open Graph) -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="아카닉 옛날바람 가이드">
-<meta property="og:description" content="아카닉 유튜브가 직접 정리한 옛날바람 사냥터·승급·사냥팁 공략집">
-<meta property="og:image" content="https://psb8423.github.io/og_image.png">
-<meta property="og:url" content="https://psb8423.github.io/">
-
-<!-- 트위터 미리보기 (Twitter Card) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="아카닉 옛날바람 가이드">
-<meta name="twitter:description" content="아카닉 유튜브가 직접 정리한 옛날바람 사냥터·승급·사냥팁 공략집">
-<meta property="og:image" content="https://psb8423.github.io/og_image.png">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아카닉 옛날바람 가이드</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5219151531650606"
      crossorigin="anonymous"></script>
+    <!-- 방문자 집계 (GoatCounter) : archonic 부분을 가입 때 정한 코드로 바꾸기 -->
+    <script data-goatcounter="https://archonic.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
     <style>
         :root { --primary-color: #007bff; --bg-color: #f0f2f5; }
         body { font-family: 'Apple SD Gothic Neo', sans-serif; background-color: var(--bg-color); display: flex; margin: 0; min-height: 100vh; }
@@ -102,6 +92,16 @@
         .price-table td.price-buy { color: #007bff; font-weight: bold; white-space: nowrap; }
         .price-table td.price-sell { color: #d32f2f; font-weight: bold; white-space: nowrap; }
         .price-table tr:nth-child(even) td { background: #fafbfc; }
+        .price-up { margin-left: 4px; font-size: 0.7rem; color: #d32f2f; }
+        .price-down { margin-left: 4px; font-size: 0.7rem; color: #1976d2; }
+        .price-archive-btn { margin: 5px 0 15px; background: #1e3a5f; font-size: 0.9rem; padding: 12px; }
+        .price-archive-btn:hover { background: #16304f; }
+        .price-old-notice { background: #fff8e1; border: 1px solid #ffe08a; color: #8a6d00; padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 0.85rem; font-weight: bold; text-align: center; }
+
+        /* 방문자 수 */
+        .visitor-bar { margin-top: 20px; padding-top: 12px; border-top: 1px solid #e3e6ea; font-size: 0.8rem; color: #888; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .visitor-bar strong { color: #1e3a5f; }
+        .visitor-sep { color: #ccc; }
 
         /* 이미지 확대 효과 CSS */
         .zoom-img { width: 100%; border-radius: 10px; margin: 15px 0; transition: 0.2s; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: block; }
@@ -209,6 +209,15 @@
             <button class="nav-btn back-btn" onclick="goBack()"><span class="nav-icon">←</span>이전으로</button>
             <button class="nav-btn home-btn" onclick="goHome()"><span class="nav-icon">🏠</span>처음으로</button>
         </div>
+
+        <!-- 방문자 수 -->
+        <div id="visitor-bar" class="visitor-bar" style="display:none;">
+            <span>오늘 <strong id="visit-today">-</strong></span>
+            <span class="visitor-sep">|</span>
+            <span>어제 <strong id="visit-yesterday">-</strong></span>
+            <span class="visitor-sep">|</span>
+            <span>전체 <strong id="visit-total">-</strong></span>
+        </div>
     </div>
 </main>
 
@@ -297,39 +306,104 @@
     setInterval(updateEventTimer, 1000);
     updateEventTimer();
 
-    // ===== 주간 시세 데이터 (여기만 고치면 됨) =====
-    // name: 아이템 이름 / short: 줄임말(없으면 "") / buy: 삽니다(최소가) / sell: 팝니다(최대가)
-    // id: 옛바도구 아이템 번호 (oldbaramtools.com/item/번호 의 숫자, 모르면 "")
-    // img: 아이템 그림 파일명 (예: "item_yongban.png", 없으면 "")
-    const priceDate = "9/27";       // 기준일
+    // ===== 주간 시세 데이터 =====
     const priceUnit = "만전";        // 가격 단위
-    const priceData = [
-        { name: "용왕의 반지(짝)",     short: "용반",     buy: 70,  sell: 80,  id: "4046",   img: "" },
-        { name: "용왕의 투구",     short: "용투",     buy: 40,  sell: 50,  id: "19", img: "" },
-        { name: "심판의낫",        short: "심낫",     buy: 740, sell: 800, id: "1130",   img: "" },
-        { name: "정화의방패",      short: "정방",     buy: 310, sell: 330, id: "3005",   img: "" },
-        { name: "괴력선창",        short: "괴력",     buy: 200, sell: 210, id: "1131",   img: "" },
-        { name: "녹호박별도",      short: "녹별도",         buy: 20,  sell: 25,  id: "1145",   img: "" },
-        { name: "녹호박팔찌(쌍)",  short: "녹팔",         buy: 2,   sell: 3,   id: "4060",   img: "" },
-        { name: "진주반지(쌍)",    short: "진반",     buy: 6,   sell: 8,   id: "4045",   img: "" },
-        { name: "타라의남(여)자옷", short: "타라",    buy: 5,   sell: 7,   id: "2039",   img: "" },
-        { name: "이가닌자의검",    short: "이가",     buy: 4,   sell: 5,   id: "1114",   img: "" },
-        { name: "팔괘",            short: "",         buy: 12,  sell: 15,  id: "",   img: "" },
-        { name: "간괘",            short: "",         buy: 2,   sell: 2.5, id: "",   img: "" },
-        { name: "수화룡의비늘",    short: "수화룡",   buy: 16,  sell: 18,  id: "",   img: "" },
-        { name: "외형슬롯이용권",  short: "외형",     buy: 100, sell: 110, id: "",   img: "" },
-        { name: "염색약",          short: "",         buy: 12,  sell: 15,  id: "",   img: "" },
-        { name: "방송쿠폰",        short: "방쿠",     buy: 1.8, sell: 1.8, id: "",   img: "" },
-        { name: "캐릭슬롯확장권",  short: "캐릭슬롯", buy: 18,  sell: 22,  id: "",   img: "" },
-        { name: "산신의정화",      short: "산신옷",   buy: 15,  sell: 20,  id: "2074",   img: "" },
-        { name: "대마령봉",        short: "대마",     buy: 0.5, sell: 1,   id: "1016",   img: "" },
-        { name: "환두대도",        short: "환두",     buy: 1,   sell: 3,   id: "1014",   img: "" }
+
+    // [1] 아이템 목록 (아이템을 새로 추가할 때만 수정)
+    // name: 아이템 이름 / short: 줄임말(없으면 "") / id: 옛바도구 번호(모르면 "") / img: 그림 파일명(없으면 "")
+    const priceItems = [
+        { name: "용왕의 반지(짝)",   short: "용반",     id: "4046", img: "" },
+        { name: "용왕의 투구",       short: "용투",     id: "19",   img: "" },
+        { name: "심판의낫",          short: "심낫",     id: "1130", img: "" },
+        { name: "정화의방패",        short: "정방",     id: "3005", img: "" },
+        { name: "괴력선창",          short: "괴력",     id: "1131", img: "" },
+        { name: "녹호박별도",        short: "녹별도",   id: "1145", img: "" },
+        { name: "녹호박팔찌(쌍)",    short: "녹팔",     id: "4060", img: "" },
+        { name: "진주반지(쌍)",      short: "진반",     id: "4045", img: "" },
+        { name: "타라의남(여)자옷",  short: "타라",     id: "2039", img: "" },
+        { name: "이가닌자의검",      short: "이가",     id: "1114", img: "" },
+        { name: "팔괘",              short: "",         id: "",     img: "" },
+        { name: "간괘",              short: "",         id: "",     img: "" },
+        { name: "수화룡의비늘",      short: "수화룡",   id: "",     img: "" },
+        { name: "외형슬롯이용권",    short: "외형",     id: "",     img: "" },
+        { name: "염색약",            short: "",         id: "",     img: "" },
+        { name: "방송쿠폰",          short: "방쿠",     id: "",     img: "" },
+        { name: "캐릭슬롯확장권",    short: "캐릭슬롯", id: "",     img: "" },
+        { name: "산신의정화",        short: "산신옷",   id: "2074", img: "" },
+        { name: "대마령봉",          short: "대마",     id: "1016", img: "" },
+        { name: "환두대도",          short: "환두",     id: "1014", img: "" }
     ];
 
-    // 시세표 HTML 자동 생성 (수정할 필요 없음)
-    function buildPriceHtml() {
+    // [2] 주별 시세 (매주 여기만 수정)
+    // ★ 새 주를 추가할 때: 맨 위 { date ... }, 블록을 통째로 복사해서 맨 위에 붙여넣고 날짜와 숫자만 바꾸기
+    // ★ 맨 위에 있는 주가 "최신 시세", 나머지는 자동으로 "지난 시세"로 이동
+    // 형식: "아이템 이름": [삽니다(최소가), 팝니다(최대가)]   ※ 이름은 위 목록과 똑같이
+    const priceHistory = [
+         { date: "10/6", prices: {
+            "용왕의 반지(짝)":  [60, 65],
+            "용왕의 투구":      [40, 50],
+            "심판의낫":         [750, 800],
+            "정화의방패":       [310, 330],
+            "괴력선창":         [190, 210],
+            "녹호박별도":       [20, 23],
+            "녹호박팔찌(쌍)":   [2, 3],
+            "진주반지(쌍)":     [6, 8],
+            "타라의남(여)자옷": [6, 8],
+            "이가닌자의검":     [3, 5],
+            "팔괘":             [10, 15],
+            "간괘":             [2, 2.5],
+            "수화룡의비늘":     [16, 20],
+            "외형슬롯이용권":   [90, 105],
+            "염색약":           [12, 13],
+            "방송쿠폰":         [1.5, 1.8],
+            "캐릭슬롯확장권":   [18, 20],
+            "산신의정화":       [20, 25],
+            "대마령봉":         [0.3, 0.5],
+            "환두대도":         [1, 4]
+        }}
+        { date: "9/27", prices: {
+            "용왕의 반지(짝)":  [70, 80],
+            "용왕의 투구":      [40, 50],
+            "심판의낫":         [740, 800],
+            "정화의방패":       [310, 330],
+            "괴력선창":         [200, 210],
+            "녹호박별도":       [20, 25],
+            "녹호박팔찌(쌍)":   [2, 3],
+            "진주반지(쌍)":     [6, 8],
+            "타라의남(여)자옷": [5, 7],
+            "이가닌자의검":     [4, 5],
+            "팔괘":             [12, 15],
+            "간괘":             [2, 2.5],
+            "수화룡의비늘":     [16, 18],
+            "외형슬롯이용권":   [100, 110],
+            "염색약":           [12, 15],
+            "방송쿠폰":         [1.8, 1.8],
+            "캐릭슬롯확장권":   [18, 22],
+            "산신의정화":       [15, 20],
+            "대마령봉":         [0.5, 1],
+            "환두대도":         [1, 3]
+        }}
+    ];
+
+    // ===== 시세표 자동 생성 (수정할 필요 없음) =====
+    // 지난주 대비 변동 표시 (▲ 오름 / ▼ 내림)
+    function priceDiff(now, before) {
+        if (before === undefined || now === before) return "";
+        const diff = Math.round((now - before) * 10) / 10;
+        return diff > 0
+            ? `<span class="price-up">▲${diff}</span>`
+            : `<span class="price-down">▼${Math.abs(diff)}</span>`;
+    }
+
+    // weekIndex: 0 = 최신, 1 = 1주 전, 2 = 2주 전 ...
+    function buildPriceHtml(weekIndex = 0) {
+        const week = priceHistory[weekIndex];
+        const prevWeek = priceHistory[weekIndex + 1];   // 비교할 전주 (없으면 변동 표시 안 함)
         let rows = "";
-        priceData.forEach(item => {
+        priceItems.forEach(item => {
+            const p = week.prices[item.name];
+            if (!p) return;   // 그 주에 시세가 없는 아이템은 생략
+            const before = prevWeek ? prevWeek.prices[item.name] : null;
             const img = item.img ? `<img src="${item.img}" alt="" class="price-icon">` : "";
             const short = item.short ? `<span class="price-short">${item.short}</span>` : "";
             const name = item.id
@@ -337,26 +411,46 @@
                 : item.name;
             rows += `<tr>
                 <td class="price-name">${img}${name}${short}</td>
-                <td class="price-buy">${item.buy}</td>
-                <td class="price-sell">${item.sell}</td>
+                <td class="price-buy">${p[0]}${before ? priceDiff(p[0], before[0]) : ""}</td>
+                <td class="price-sell">${p[1]}${before ? priceDiff(p[1], before[1]) : ""}</td>
             </tr>`;
         });
+
+        const isLatest = weekIndex === 0;
+        const archiveBtn = (isLatest && priceHistory.length > 1)
+            ? `<button class="price-archive-btn" onclick="showPriceArchive()">📅 지난 시세 보기</button>`
+            : "";
+        const oldNotice = isLatest ? "" : `<div class="price-old-notice">📁 지난 시세입니다. 최신 시세는 ${priceHistory[0].date} 기준을 확인하세요.</div>`;
+
         return `
             <div class="price-warning">⚠️ 실제 시세와 다를 수 있으니 거래 시 항상 주의 바랍니다.</div>
-            <h3>[주간 시세] ${priceDate} 기준</h3>
+            ${oldNotice}
+            <h3>[주간 시세] ${week.date} 기준</h3>
             <table class="stat-table price-table">
                 <tr><th>아이템</th><th>삽니다<br><small>(최소가)</small></th><th>팝니다<br><small>(최대가)</small></th></tr>
                 ${rows}
             </table>
+            ${archiveBtn}
             <div class='tip-box'>
                 <strong>📌 안내</strong><br>
                 ※ 단위: ${priceUnit}<br>
                 ※ 옛날바람 디스코드 삽니다/팝니다 채널 기준으로 정리한 <strong>참고용 시세</strong>입니다.<br>
                 ※ 반지류에서 짝은 1개, 쌍은 2개를 뜻합니다.<br>
+                ※ ▲▼ 표시는 전주 대비 변동입니다.<br>
                 ※ 파란 밑줄 아이템 이름을 누르면 옛바도구 상세 페이지가 새 창으로 열립니다.<br>
                 ※ 매주 갱신 예정
             </div>
         `;
+    }
+
+    // "지난 시세 보기" 화면 (주 목록 → 누르면 그 주 시세표)
+    function showPriceArchive() {
+        const options = priceHistory.slice(1).map((week, i) => ({
+            text: `${week.date} 주간 시세`,
+            result: buildPriceHtml(i + 1)
+        }));
+        render({ title: "지난 주간 시세 (날짜 선택)", options: options });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ===== 가이드 데이터 =====
@@ -1193,6 +1287,45 @@
             el.style.display = text.includes(k) ? 'block' : 'none';
         });
     }
+
+    // ===== 방문자 수 (오늘 / 어제 / 전체) =====
+    const GOAT_CODE = "archonic";   // GoatCounter 가입 때 정한 코드 (위 head 부분과 같게)
+
+    function dateStr(d) {
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    async function getCount(query) {
+        try {
+            const res = await fetch(`https://${GOAT_CODE}.goatcounter.com/counter/TOTAL.json${query}`);
+            if (res.status === 404) return "0";   // 방문 기록이 없으면 0
+            if (!res.ok) return null;
+            const data = await res.json();
+            return data.count;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async function loadVisitors() {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+        const t = dateStr(today), y = dateStr(yesterday);
+
+        const [cToday, cYesterday, cTotal] = await Promise.all([
+            getCount(`?start=${t}&end=${t}`),
+            getCount(`?start=${y}&end=${y}`),
+            getCount("")
+        ]);
+
+        if (cTotal === null) return;   // 불러오기 실패 시 숨긴 채로 둠
+        document.getElementById('visit-today').innerText = cToday ?? "-";
+        document.getElementById('visit-yesterday').innerText = cYesterday ?? "-";
+        document.getElementById('visit-total').innerText = cTotal;
+        document.getElementById('visitor-bar').style.display = 'flex';
+    }
+    loadVisitors();
 
     // 초기 실행
     buildTree(guideData, treeMenuEl);
