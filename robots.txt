@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://psb8423.github.io/sitemap.xml
